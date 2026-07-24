@@ -1,0 +1,89 @@
+table DimDate
+	lineageTag: 8179a5ce-88e9-42ba-b7d0-6d27e8fbfb02
+	dataCategory: Time
+
+	measure Measure = DATEADD(DimDate[Date],1,MONTH)
+		formatString: General Date
+		lineageTag: 45f742f8-6ed5-4d88-89d9-f6da46c73785
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: Long Date
+		lineageTag: 6a915a36-71cc-4563-a9f4-28779d0a5b6f
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 5fe2ecdd-1ad8-4e21-8d0d-333e8f399aea
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: string
+		lineageTag: d84375b5-bfed-4284-970c-14b1958f3ccf
+		summarizeBy: none
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 83d600f7-7c07-4a9a-bdf6-e5bed6665763
+		summarizeBy: sum
+		sourceColumn: MonthNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		dataType: string
+		lineageTag: 10503416-c9eb-4bcd-bda7-48a870dad8f8
+		summarizeBy: none
+		sourceColumn: MonthName
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekdayNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: bedfb3e5-af32-425c-8bb9-b2fb59e48190
+		summarizeBy: sum
+		sourceColumn: WeekdayNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 785d00ed-3d12-482e-83e3-2498cabb6689
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition DimDate = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\Bamzz\Documents\Projects\Data space\HR_Workforce_and_Attrition\HR_Workforce_Planning_Attrition_Dataset_4U_Challenge.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "DimDate", Kind = "Sheet"]}[Data],
+				  #"Promoted headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"Date", type date}, {"Month", type date}, {"Year", Int64.Type}, {"Quarter", type text}, {"MonthNumber", Int64.Type}, {"MonthName", type text}, {"WeekdayNumber", Int64.Type}})
+				in
+				    #"Changed column type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

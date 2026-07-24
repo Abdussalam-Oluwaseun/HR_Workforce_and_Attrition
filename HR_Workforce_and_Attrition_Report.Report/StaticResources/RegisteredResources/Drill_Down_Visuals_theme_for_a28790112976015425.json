@@ -1,0 +1,20 @@
+{
+  "name": "Drill Down Visuals theme for abdulmujeeb.abdussalam220591007@st.lasu.edu.ng",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "paid": [
+          {
+            "show": true
+          }
+        ],
+        "license": [
+          {
+            "key": "ZoomCharts Drill Down Visuals Developer License (valid until: 2026-11-16);PBID-0551jpfa0#qwhof9kHfMY5jE19csEc8/G3p6zxrfU3csl9gsp+sW9MiT9b6lMRWGjtqih/AizuM7ARjfPCJMnSa0sVx8QNFS+kdrFmmNS/yRLm1SbTzn9b4zOcw4SMkjSQTHyqhfwqFUz3bdJdILxN9csVMq2XsMJWYJL+sR641",
+            "hash": "/Tksk1xRhxhrj7oIdDpNMkyK5CbtuzrsZikzfqR8NOIsklMkmeikzCTe304tib10eEYypNTmboa0LWXxK7UoJ6yH/WiP+dCXv6lHhYPf/7IoVnxgsnW66vi802JLaJ+CUk4Vqqg4p3/MmkmEFhCutOfV75Utzp6IVFlxcPku8RH5QMqpoaeiA=="
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+table FactEngagement
+	lineageTag: cb2113c9-1a07-484d-8ad5-c8da03a43064
+
+	column EmployeeID
+		dataType: string
+		lineageTag: 087915e6-0224-4c14-af3d-097612fc5e87
+		summarizeBy: none
+		sourceColumn: EmployeeID
+
+		annotation SummarizationSetBy = Automatic
+
+	column SurveyDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: abde514f-b5bd-46c2-82d2-aaa81d2bacb1
+		summarizeBy: none
+		sourceColumn: SurveyDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column EngagementScore
+		dataType: int64
+		formatString: 0
+		lineageTag: d095f9e5-2453-4d43-88e8-e18d125f7187
+		summarizeBy: sum
+		sourceColumn: EngagementScore
+
+		annotation SummarizationSetBy = Automatic
+
+	column ResponseRatePct
+		dataType: int64
+		formatString: 0
+		lineageTag: 0cd981b2-5266-42d5-8675-70074a904dca
+		summarizeBy: sum
+		sourceColumn: ResponseRatePct
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactEngagement = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\Bamzz\Documents\Projects\Data space\HR_Workforce_and_Attrition\HR_Workforce_Planning_Attrition_Dataset_4U_Challenge.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "FactEngagement", Kind = "Sheet"]}[Data],
+				  #"Promoted headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"EmployeeID", type text}, {"SurveyDate", type date}, {"EngagementScore", Int64.Type}, {"ResponseRatePct", Int64.Type}})
+				in
+				    #"Changed column type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

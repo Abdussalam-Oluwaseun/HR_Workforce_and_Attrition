@@ -1,0 +1,86 @@
+relationship AutoDetected_2f89fec8-d3eb-48ad-a843-b7fbf911ef3d
+	fromColumn: FactEmployeeEvents.EmployeeID
+	toColumn: DimEmployee.EmployeeID
+
+relationship AutoDetected_cff4829a-d367-46ae-ad56-c992efda798f
+	fromColumn: FactCompensation.EmployeeID
+	toColumn: DimEmployee.EmployeeID
+
+relationship AutoDetected_3ebb21f7-2cac-41ef-92e0-716f872773f1
+	fromColumn: FactPerformance.EmployeeID
+	toColumn: DimEmployee.EmployeeID
+
+relationship AutoDetected_b924f1e0-c265-4f8b-9e5f-e45451ea9b5c
+	fromColumn: FactEngagement.EmployeeID
+	toColumn: DimEmployee.EmployeeID
+
+relationship AutoDetected_92ca9edf-7fbc-4454-aee0-d75564930a83
+	fromColumn: FactAbsence.EmployeeID
+	toColumn: DimEmployee.EmployeeID
+
+relationship AutoDetected_ecb17248-ef57-42a7-94a4-fe5bd0accf18
+	fromColumn: DimEmployee.LocationID
+	toColumn: DimLocation.LocationID
+
+relationship AutoDetected_c83195b4-d2c4-4af9-bdcf-8cb65c7b75dd
+	fromColumn: FactMonthlySnapshot.LocationID
+	toColumn: DimLocation.LocationID
+
+relationship AutoDetected_3ee7747f-d36b-4f07-ae15-5601505d934c
+	isActive: false
+	fromColumn: FactEmployeeEvents.LocationID
+	toColumn: DimLocation.LocationID
+
+relationship AutoDetected_ce653cc8-57f8-423e-af8b-f1ade2244807
+	fromColumn: DimEmployee.DepartmentID
+	toColumn: DimDepartment.DepartmentID
+
+relationship AutoDetected_6569ebf9-a036-47fc-9756-8a1d8f3d106d
+	fromColumn: FactMonthlySnapshot.DepartmentID
+	toColumn: DimDepartment.DepartmentID
+
+relationship AutoDetected_30c4f01a-a6d2-4e8b-9532-e793d00b7f85
+	isActive: false
+	fromColumn: FactEmployeeEvents.DepartmentID
+	toColumn: DimDepartment.DepartmentID
+
+relationship AutoDetected_d5abcaea-c76e-430c-8af1-b702e0c878e4
+	fromColumn: FactRecruitment.DepartmentID
+	toColumn: DimDepartment.DepartmentID
+
+relationship AutoDetected_f63d364f-11ba-4f97-9cb0-f3b23c517138
+	fromColumn: WorkforceTargets.DepartmentID
+	toColumn: DimDepartment.DepartmentID
+
+relationship 85808eaf-7619-9fbc-53fc-d96f9ccda2e6
+	fromColumn: FactMonthlySnapshot.Month
+	toColumn: DimDate.Date
+
+relationship 06090c1f-f621-acf8-b5a7-768e47ae39ac
+	fromColumn: FactEmployeeEvents.EventDate
+	toColumn: DimDate.Date
+
+relationship 592b5309-bfd1-a2a5-1c77-37c97287ccc5
+	fromColumn: FactCompensation.EffectiveDate
+	toColumn: DimDate.Date
+
+relationship b2bcda3c-ca0f-122d-9f29-3a1b2b09a345
+	fromColumn: FactPerformance.ReviewDate
+	toColumn: DimDate.Date
+
+relationship 889bdc8e-a2b3-3cc9-d362-4951679897df
+	fromColumn: WorkforceTargets.Month
+	toColumn: DimDate.Date
+
+relationship b16d1774-234e-8f4f-720a-66fbf8082de2
+	fromColumn: FactRecruitment.Month
+	toColumn: DimDate.Date
+
+relationship 13d91e0e-830e-a44a-7a90-60bfce9bf34b
+	fromColumn: FactAbsence.AbsenceDate
+	toColumn: DimDate.Date
+
+relationship 1bb836da-8ad8-d021-ce30-75c67baf67ad
+	fromColumn: FactEngagement.SurveyDate
+	toColumn: DimDate.Date
+

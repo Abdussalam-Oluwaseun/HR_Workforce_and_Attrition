@@ -1,0 +1,165 @@
+table DimEmployee
+	lineageTag: de62e7e0-131b-4ffe-a2a3-0ce4f86e4da9
+
+	column EmployeeID
+		dataType: string
+		lineageTag: a83abea5-abf7-4139-95fb-6e5e360d8cfc
+		summarizeBy: none
+		sourceColumn: EmployeeID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DepartmentID
+		dataType: string
+		lineageTag: 58010ade-1178-4709-ae4d-a20d9f687423
+		summarizeBy: none
+		sourceColumn: DepartmentID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Role
+		dataType: string
+		lineageTag: 979b8b65-e19b-40b6-b224-d05eced05f12
+		summarizeBy: none
+		sourceColumn: Role
+
+		annotation SummarizationSetBy = Automatic
+
+	column Level
+		dataType: string
+		lineageTag: fa9a5f27-3c19-403c-860c-d4867af4190f
+		summarizeBy: none
+		sourceColumn: Level
+
+		annotation SummarizationSetBy = Automatic
+
+	column LocationID
+		dataType: string
+		lineageTag: 1a3cc786-0852-4de7-b05c-00f5df36bb62
+		summarizeBy: none
+		sourceColumn: LocationID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ManagerID
+		dataType: string
+		lineageTag: af424aa3-15ab-4453-af41-d24f2ce4a2f0
+		summarizeBy: none
+		sourceColumn: ManagerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: ad47904e-5ea8-45aa-9f04-4b316c53e748
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column BirthYear
+		dataType: int64
+		formatString: 0
+		lineageTag: 799ba642-b682-4d64-9041-431ecd4562db
+		summarizeBy: sum
+		sourceColumn: BirthYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column AgeBand
+		dataType: string
+		lineageTag: dd253d24-e3df-4091-a48d-e92eeacc3ade
+		summarizeBy: none
+		sourceColumn: AgeBand
+
+		annotation SummarizationSetBy = Automatic
+
+	column HireDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 802c8b4c-6b43-4cfe-a41c-8e1516119ec6
+		summarizeBy: none
+		sourceColumn: HireDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column TerminationDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 09a8673b-4bd7-49c4-98f6-c074d49659d5
+		summarizeBy: none
+		sourceColumn: TerminationDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column EmploymentStatus
+		dataType: string
+		lineageTag: d0264510-ae2a-4f9a-9014-5ecf31ee4f65
+		summarizeBy: none
+		sourceColumn: EmploymentStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column TerminationType
+		dataType: string
+		lineageTag: df74654f-a08f-4104-853d-a0ccd8a3236d
+		summarizeBy: none
+		sourceColumn: TerminationType
+
+		annotation SummarizationSetBy = Automatic
+
+	column TerminationReason
+		dataType: string
+		lineageTag: fc22ff4d-3c15-4a18-90d5-fd2f920cfe3f
+		summarizeBy: none
+		sourceColumn: TerminationReason
+
+		annotation SummarizationSetBy = Automatic
+
+	column FTE
+		dataType: double
+		lineageTag: c639fca5-2fac-4a06-bc25-2e3c29b94ddd
+		summarizeBy: sum
+		sourceColumn: FTE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TenureMonthsAtExitOrEnd
+		dataType: int64
+		formatString: 0
+		lineageTag: f2ccaa69-62e7-40a6-9dd6-fb57b33da0b9
+		summarizeBy: sum
+		sourceColumn: TenureMonthsAtExitOrEnd
+
+		annotation SummarizationSetBy = Automatic
+
+	column TenureBandAtExitOrEnd
+		dataType: string
+		lineageTag: 704fe62a-29a6-44a7-a65f-0edb001ef82e
+		summarizeBy: none
+		sourceColumn: TenureBandAtExitOrEnd
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimEmployee = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\Bamzz\Documents\Projects\Data space\HR_Workforce_and_Attrition\HR_Workforce_Planning_Attrition_Dataset_4U_Challenge.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "DimEmployee", Kind = "Sheet"]}[Data],
+				  #"Promoted headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"EmployeeID", type text}, {"DepartmentID", type text}, {"Department", type text}, {"Role", type text}, {"Level", type text}, {"LocationID", type text}, {"Location", type text}, {"ManagerID", type text}, {"Gender", type text}, {"BirthYear", Int64.Type}, {"AgeBand", type text}, {"HireDate", type date}, {"TerminationDate", type date}, {"EmploymentStatus", type text}, {"TerminationType", type text}, {"TerminationReason", type text}, {"FTE", type number}, {"TenureMonthsAtExitOrEnd", Int64.Type}, {"TenureBandAtExitOrEnd", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed column type",{"Department", "Location"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

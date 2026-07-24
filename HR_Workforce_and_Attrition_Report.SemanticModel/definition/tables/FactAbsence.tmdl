@@ -1,0 +1,52 @@
+table FactAbsence
+	lineageTag: 475294a0-505e-46aa-8aba-661cc3c9d929
+
+	column EmployeeID
+		dataType: string
+		lineageTag: 791aff2b-dc4e-4ccf-8042-b0f93801c33c
+		summarizeBy: none
+		sourceColumn: EmployeeID
+
+		annotation SummarizationSetBy = Automatic
+
+	column AbsenceDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c3d225db-c302-4738-b72a-283c6cb2a7b8
+		summarizeBy: none
+		sourceColumn: AbsenceDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column AbsenceType
+		dataType: string
+		lineageTag: 7b5012fa-d1a6-4ea8-a3b7-d2b719b9bda1
+		summarizeBy: none
+		sourceColumn: AbsenceType
+
+		annotation SummarizationSetBy = Automatic
+
+	column DaysAbsent
+		dataType: int64
+		formatString: 0
+		lineageTag: dc2a8ad4-3861-41d6-be03-e874f494ffd3
+		summarizeBy: sum
+		sourceColumn: DaysAbsent
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactAbsence = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\Bamzz\Documents\Projects\Data space\HR_Workforce_and_Attrition\HR_Workforce_Planning_Attrition_Dataset_4U_Challenge.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "FactAbsence", Kind = "Sheet"]}[Data],
+				  #"Promoted headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"EmployeeID", type text}, {"AbsenceDate", type date}, {"AbsenceType", type text}, {"DaysAbsent", Int64.Type}})
+				in
+				  #"Changed column type"
+
+	annotation PBI_ResultType = Table
+

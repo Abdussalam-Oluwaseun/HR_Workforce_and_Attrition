@@ -1,0 +1,82 @@
+table FactRecruitment
+	lineageTag: 92ae3ffe-54f4-456d-905a-5b3fab84b3d2
+
+	column ReqID
+		dataType: string
+		lineageTag: d2640a9b-a16b-46c1-a3da-944fd7e0bcf3
+		summarizeBy: none
+		sourceColumn: ReqID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9c8584c7-c55c-4d72-a082-a4b535ad884c
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DepartmentID
+		dataType: string
+		lineageTag: fad23e87-1e6e-4534-8620-c21afff85ed0
+		summarizeBy: none
+		sourceColumn: DepartmentID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OpenRequisitions
+		dataType: int64
+		formatString: 0
+		lineageTag: 5f76c1db-5367-4fe5-b417-34de20550900
+		summarizeBy: sum
+		sourceColumn: OpenRequisitions
+
+		annotation SummarizationSetBy = Automatic
+
+	column FilledRequisitions
+		dataType: int64
+		formatString: 0
+		lineageTag: 7404149d-a04b-4de2-9de6-f5edf6dfe008
+		summarizeBy: sum
+		sourceColumn: FilledRequisitions
+
+		annotation SummarizationSetBy = Automatic
+
+	column CancelledRequisitions
+		dataType: int64
+		formatString: 0
+		lineageTag: 5be75589-2fb8-489f-a77b-27f9dff149ca
+		summarizeBy: sum
+		sourceColumn: CancelledRequisitions
+
+		annotation SummarizationSetBy = Automatic
+
+	column AvgDaysToFill
+		dataType: int64
+		formatString: 0
+		lineageTag: 846d21a3-6155-4065-8238-79568b6d65a7
+		summarizeBy: sum
+		sourceColumn: AvgDaysToFill
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactRecruitment = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\Bamzz\Documents\Projects\Data space\HR_Workforce_and_Attrition\HR_Workforce_Planning_Attrition_Dataset_4U_Challenge.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "FactRecruitment", Kind = "Sheet"]}[Data],
+				  #"Promoted headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"ReqID", type text}, {"Month", type date}, {"DepartmentID", type text}, {"Department", type text}, {"OpenRequisitions", Int64.Type}, {"FilledRequisitions", Int64.Type}, {"CancelledRequisitions", Int64.Type}, {"AvgDaysToFill", Int64.Type}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed column type",{"Department"})
+				in
+				  #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

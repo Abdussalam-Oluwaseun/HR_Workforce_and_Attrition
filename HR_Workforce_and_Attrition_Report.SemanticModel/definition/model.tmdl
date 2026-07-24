@@ -1,0 +1,30 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["DimEmployee","FactMonthlySnapshot","FactEmployeeEvents","FactCompensation","FactPerformance","FactEngagement","FactAbsence","FactRecruitment","WorkforceTargets","DimDepartment","DimLocation","DimDate","_measures"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table DimEmployee
+ref table FactMonthlySnapshot
+ref table FactEmployeeEvents
+ref table FactCompensation
+ref table FactPerformance
+ref table FactEngagement
+ref table FactAbsence
+ref table FactRecruitment
+ref table WorkforceTargets
+ref table DimDepartment
+ref table DimLocation
+ref table DimDate
+ref table _measures
+
+ref cultureInfo en-US
+

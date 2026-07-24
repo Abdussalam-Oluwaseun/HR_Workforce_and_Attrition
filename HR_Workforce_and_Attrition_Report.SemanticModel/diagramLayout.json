@@ -1,0 +1,191 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 519.9982982900865,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 772.0669047072945,
+            "y": 572.04616004550257
+          },
+          "nodeIndex": "DimDate",
+          "nodeLineageTag": "8179a5ce-88e9-42ba-b7d0-6d27e8fbfb02",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1170.7674008378567,
+            "y": 582.08262898868156
+          },
+          "nodeIndex": "DimDepartment",
+          "nodeLineageTag": "1e0f76fe-6249-4892-b33b-d84b632dde1b",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 566.00497703870087
+          },
+          "nodeIndex": "DimEmployee",
+          "nodeLineageTag": "de62e7e0-131b-4ffe-a2a3-0ce4f86e4da9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 404.41166860927279,
+            "y": 563.70441433834867
+          },
+          "nodeIndex": "DimLocation",
+          "nodeLineageTag": "8a4279bc-515c-47a4-a1e5-fdc9bd051099",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "FactAbsence",
+          "nodeLineageTag": "475294a0-505e-46aa-8aba-661cc3c9d929",
+          "size": {
+            "height": 212.53683181605288,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 304.33989882788649,
+            "y": 0
+          },
+          "nodeIndex": "FactCompensation",
+          "nodeLineageTag": "77a02141-e629-4165-adf7-8c3841ae5bf6",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1493.6702763568139,
+            "y": 0
+          },
+          "nodeIndex": "FactEmployeeEvents",
+          "nodeLineageTag": "68194ce9-12f3-454b-a256-49c509e47250",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 614.70418603252222,
+            "y": 0
+          },
+          "nodeIndex": "FactEngagement",
+          "nodeLineageTag": "cb2113c9-1a07-484d-8ad5-c8da03a43064",
+          "size": {
+            "height": 242.04734982132629,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 920.05181450304224,
+            "y": 0
+          },
+          "nodeIndex": "FactMonthlySnapshot",
+          "nodeLineageTag": "090a78d6-2930-44c0-9948-918010d8d164",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1224.3011963773897,
+            "y": 0
+          },
+          "nodeIndex": "FactPerformance",
+          "nodeLineageTag": "bd4811ac-01e7-44fa-8e9a-e74200e0c253",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 1789.8809400457344,
+            "y": 0
+          },
+          "nodeIndex": "FactRecruitment",
+          "nodeLineageTag": "92ae3ffe-54f4-456d-905a-5b3fab84b3d2",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 1802.1293149843407,
+            "y": 342.71860995003908
+          },
+          "nodeIndex": "WorkforceTargets",
+          "nodeLineageTag": "e98d2a9a-df4d-44ec-9be9-19221c425ef4",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 1795.7253852048307,
+            "y": 664.865566474838
+          },
+          "nodeIndex": "_measures",
+          "nodeLineageTag": "605c917c-a440-42ee-aa8b-0b20a49990d3",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 71.161068728943846,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

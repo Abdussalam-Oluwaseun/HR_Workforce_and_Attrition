@@ -1,0 +1,409 @@
+table _measures
+	lineageTag: 605c917c-a440-42ee-aa8b-0b20a49990d3
+
+	measure 'Total Terminations' =
+			
+			CALCULATE(
+			    COUNTROWS(FactEmployeeEvents),
+			    FactEmployeeEvents[EventType] = "Termination"
+			)
+		formatString: 0
+		displayFolder: Attrition
+		lineageTag: 75263a44-36ee-4105-b9c7-482a636f799b
+
+	measure 'Structural Exits' =
+			
+			CALCULATE(
+			    COUNTROWS(FactEmployeeEvents),
+			    FactEmployeeEvents[EventType] = "Termination",
+			    FactEmployeeEvents[IsRestructuringExit] = TRUE
+			)
+		formatString: 0
+		displayFolder: Attrition
+		lineageTag: ab19409a-c444-4b7e-aa0c-470ca16862e4
+
+	measure 'Organic Terminations' =
+			
+			CALCULATE(
+			    COUNTROWS(FactEmployeeEvents),
+			    FactEmployeeEvents[EventType] = "Termination",
+			    FactEmployeeEvents[IsRestructuringExit] = FALSE
+			)
+		formatString: 0
+		displayFolder: Attrition
+		lineageTag: 8c540402-2565-4a39-b5ff-8cb6ef94c581
+
+	measure 'Voluntary Exits' =
+			
+			CALCULATE(
+			    COUNTROWS(FactEmployeeEvents),
+			    FactEmployeeEvents[EventType] = "Termination",
+			    FactEmployeeEvents[TerminationType] = "Voluntary"
+			)
+		formatString: 0
+		displayFolder: Attrition
+		lineageTag: 128e6870-f811-4b77-a58f-4947ea370851
+
+	measure 'Involuntary Organic Exits' =
+			
+			CALCULATE(
+			    COUNTROWS(FactEmployeeEvents),
+			    FactEmployeeEvents[EventType] = "Termination",
+			    FactEmployeeEvents[TerminationType] = "Involuntary",
+			    FactEmployeeEvents[IsRestructuringExit] = FALSE
+			)
+		formatString: 0
+		displayFolder: Attrition
+		lineageTag: 4093c94f-60d9-4846-b5fc-17c83fbc1906
+
+	measure 'Avg Monthly Headcount' =
+			
+			AVERAGEX(
+			    VALUES(FactMonthlySnapshot[Month]),
+			    CALCULATE(SUM(FactMonthlySnapshot[Headcount]))
+			)
+		displayFolder: Attrition
+		lineageTag: 1e4ba84f-b35e-44a1-b92c-2f09b8dc02f5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Attrition Rate (All Exits)' =
+			
+			DIVIDE(
+			    [Total Terminations],
+			    [Avg Monthly Headcount],
+			    0
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Attrition
+		lineageTag: 3a6a4245-b4b7-4b33-92d6-8032a8f329cd
+
+	measure 'Organic Attrition Rate' =
+			
+			DIVIDE(
+			    [Organic Terminations],
+			    [Avg Monthly Headcount],
+			    0
+			)
+		displayFolder: Attrition
+		lineageTag: 467956fc-df63-4a84-8813-01c6d941f73f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Voluntary Attrition Rate' =
+			
+			DIVIDE(
+			    [Voluntary Exits],
+			    [Avg Monthly Headcount],
+			    0
+			)
+		displayFolder: Attrition
+		lineageTag: 20fd7404-a7c2-4bda-a1a9-fb0c99a58fb1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Rolling 12M Attrition Rate' = ```
+			
+			VAR _LastDate =
+			    CALCULATE(
+			        MAX(DimDate[Date]),
+			        ALL(DimDate)      
+			    )
+			VAR _DateWindow =
+			    DATESINPERIOD(
+			        DimDate[Date],
+			        _LastDate,
+			        -12,
+			        MONTH
+			    )
+			VAR _Terminations12M =
+			    CALCULATE(
+			        [Organic Terminations],
+			        _DateWindow
+			    )
+			VAR _AvgHeadcount12M =
+			    CALCULATE(
+			        [Avg Monthly Headcount],
+			        _DateWindow
+			    )
+			RETURN
+			    DIVIDE(_Terminations12M, _AvgHeadcount12M, 0)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Attrition
+		lineageTag: d627cb1f-33db-4da3-a928-aa8aba388f3c
+
+	measure 'Rolling 12M Attrition Rate PY' = ```
+			
+			VAR _LastDate =
+			    CALCULATE(MAX(DimDate[Date]), ALL(DimDate))
+			VAR _PriorWindow =
+			    DATESINPERIOD(
+			        DimDate[Date],
+			        EDATE(_LastDate, -12),  
+			        -12,
+			        MONTH
+			    )
+			VAR _Terminations_PY =
+			    CALCULATE([Organic Terminations], _PriorWindow)
+			VAR _AvgHeadcount_PY =
+			    CALCULATE([Avg Monthly Headcount], _PriorWindow)
+			RETURN
+			    DIVIDE(_Terminations_PY, _AvgHeadcount_PY, 0)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Attrition
+		lineageTag: c923c906-d467-4bbc-a700-865b33a3a009
+
+	measure 'Attrition Rate YoY Change' =
+			
+			[Rolling 12M Attrition Rate] - [Rolling 12M Attrition Rate PY]
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Attrition
+		lineageTag: f1735482-46a5-401d-a7df-d8a874489838
+
+	measure 'Open Requisitions' =
+			
+			SUM(FactRecruitment[OpenRequisitions])
+		formatString: 0
+		displayFolder: Requisition
+		lineageTag: 349bde0a-88b1-4d7d-b875-63fd68a62dbc
+
+	measure 'Filled Requisitions' =
+			
+			SUM(FactRecruitment[FilledRequisitions])
+		formatString: 0
+		displayFolder: Requisition
+		lineageTag: 01f72ddd-10b2-4c9f-84b8-921c99f4588e
+
+	measure 'Cancelled Requisitions' =
+			
+			SUM(FactRecruitment[CancelledRequisitions])
+		formatString: 0
+		displayFolder: Requisition
+		lineageTag: 342c61d1-e4f9-4146-985e-b7d88035de17
+
+	measure 'Unfilled Requisitions' =
+			
+			[Open Requisitions] - [Filled Requisitions] - [Cancelled Requisitions]
+		formatString: 0
+		displayFolder: Requisition
+		lineageTag: 513e7112-a534-491d-8e8a-28d55b022e5d
+
+	measure 'Net Fill Rate %' = ```
+			
+			DIVIDE(
+			    [Filled Requisitions],
+			    [Open Requisitions] - [Cancelled Requisitions],
+			    0
+			)
+			-- Net Fill Rate: Filled ÷ (Open − Cancelled)
+			-- Fairer view — removes roles the business chose to cancel
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Requisition
+		lineageTag: 5ad4f3d0-95ba-4ced-81e5-4217aeddb1c8
+
+	measure 'Recruitment Fill Rate %' =
+			
+			DIVIDE(
+			    [Filled Requisitions],
+			    [Open Requisitions],
+			    0
+			)
+			-- Includes cancelled roles in the denominator (conservative view)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Requisition
+		lineageTag: 5c3d93ad-ad03-4aca-b94e-4d68062984c8
+
+	measure 'Avg Days to Fill' =
+			
+			DIVIDE(
+			    SUMX(
+			        FactRecruitment,
+			        FactRecruitment[AvgDaysToFill] * FactRecruitment[FilledRequisitions]
+			    ),
+			    [Filled Requisitions],
+			    0
+			)
+		displayFolder: Requisition
+		lineageTag: 2c2f216a-e624-445d-9542-91d32b888099
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Budgeted FTE' =
+			
+			SUM(WorkforceTargets[BudgetedFTE])
+		displayFolder: FTE
+		lineageTag: 374a6c4a-b405-4630-969e-362aeb968bbb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Actual FTE' =
+			
+			SUM(FactMonthlySnapshot[FTE])
+		displayFolder: FTE
+		lineageTag: 430219f7-561b-41c1-a451-6dfeb635ad85
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Current FTE' =
+			
+			CALCULATE(
+			    SUM(FactMonthlySnapshot[FTE]),
+			    LASTDATE(DimDate[Month])
+			)
+		displayFolder: FTE
+		lineageTag: 91def159-f111-4001-af7c-c8d10581ab36
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Current Budgeted FTE' =
+			
+			CALCULATE(
+			    SUM(WorkforceTargets[BudgetedFTE]),
+			    LASTDATE(DimDate[Month])
+			)
+		displayFolder: FTE
+		lineageTag: 751ec560-8d9f-4a7a-ae5d-23c3d7547d81
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'FTE Bullet Chart' =
+			
+			
+			VAR _ActualFTE  = [Current FTE]
+			VAR _BudgetFTE  = [Current Budgeted FTE]
+			
+			-- Guard against zero budget to avoid division errors
+			VAR _SafeBudget = IF(_BudgetFTE = 0, 1, _BudgetFTE)
+			
+			-- ── Scaling ───────────────────────────────────────────────────────────
+			-- Track represents 120% of budget so overstaffing is still visible
+			VAR _MaxFTE  = _SafeBudget * 1.20
+			VAR _TrackW  = 300
+			VAR _Scale   = DIVIDE(_TrackW, _MaxFTE, 0)
+			
+			-- ── Bar & Marker positions (px) ───────────────────────────────────────
+			-- Comparative band: ends exactly at 100% of budget
+			VAR _CompW   = MIN(ROUND(_SafeBudget * _Scale, 0), _TrackW)
+			
+			-- Actual bar: current FTE scaled proportionally, capped at track width
+			VAR _ActualW = MIN(MAX(ROUND(_ActualFTE * _Scale, 0), 0), _TrackW)
+			
+			-- Target line: sits at the budget position (same as _CompW)
+			VAR _TargetX = _CompW
+			VAR _TriX1   = _TargetX - 6
+			VAR _TriX2   = _TargetX + 6
+			
+			-- ── Actual bar colour (self-explanatory without a legend) ─────────────
+			-- 🔴 Red   = understaffed  (actual < 95% of budget)
+			-- 🟢 Green = on plan       (within ±5% of budget)
+			-- 🔵 Blue  = overstaffed   (actual > 105% of budget)
+			VAR _BarColor =
+			    SWITCH(
+			        TRUE(),
+			        _ActualFTE < _SafeBudget * 0.95, "%23C0392B",
+			        _ActualFTE > _SafeBudget * 1.05, "%232471A3",
+			        "%231F3A2E"
+			    )
+			
+			-- ── Label ─────────────────────────────────────────────────────────────
+			-- Shows "999.0 / 1,020.0" (actual / budget)
+			VAR _ActualLabel = FORMAT(_ActualFTE,  "#,##0.0")
+			VAR _BudgetLabel = FORMAT(_BudgetFTE, "#,##0.0")
+			VAR _Label       = _ActualLabel & " / " & _BudgetLabel
+			
+			RETURN
+			"data:image/svg+xml;utf8," &
+			"<svg xmlns='http://www.w3.org/2000/svg' width='460' height='24'>" &
+			
+			-- Background track (full range = 120% of budget)
+			"<rect width='" & _TrackW & "' height='24' rx='4' fill='%23F4EFE3'/>" &
+			
+			-- Comparative band: budget zone (lighter fill, ends at budget)
+			"<rect width='" & _CompW & "' height='16' y='4' rx='3' fill='%23B7C2AE'/>" &
+			
+			-- Actual FTE bar (colour-coded by status)
+			"<rect width='" & _ActualW & "' height='8' y='8' rx='2' fill='" & _BarColor & "'/>" &
+			
+			-- Target marker triangle (downward-pointing arrow at budget line)
+			"<polygon points='" & _TriX1 & ",0 " & _TriX2 & ",0 " & _TargetX & ",10' fill='%23B08D3C'/>" &
+			
+			-- Target marker vertical line
+			"<line x1='" & _TargetX & "' y1='0' x2='" & _TargetX & "' y2='24'" &
+			" stroke='%23B08D3C' stroke-width='2'/>" &
+			
+			-- Value label: Actual / Budget
+			"<text x='308' y='17' font-family='Inter' font-size='11' fill='%236B6558'>" &
+			_Label & "</text>" &
+			
+			"</svg>"
+		lineageTag: e0e8cd38-0252-4be6-82c5-27fc2e79c3dd
+		dataCategory: ImageUrl
+
+	measure 'Actual Headcount' = SUM(FactMonthlySnapshot[Headcount])
+		formatString: 0
+		lineageTag: 33f441fc-6a6c-431c-878b-d5933ffbd31b
+
+	measure 'Current YR Headcount' = ```
+			
+			VAR _CurrentYear = 
+			    YEAR(MAX(DimDate[Month]))
+			RETURN
+			    CALCULATE(
+			        [Actual Headcount],
+			        FILTER(
+			            ALL(DimDate),
+			            YEAR(DimDate[Month]) = _CurrentYear
+			        )
+			    )
+			```
+		formatString: 0
+		lineageTag: 80c7983a-23c7-4968-9a41-400b55d38191
+
+	measure 'Budget Headcount' = SUM(WorkforceTargets[PlannedHeadcount])
+		formatString: 0
+		lineageTag: 4940ae95-8c48-4583-bac7-187e527bc409
+
+	measure 'Current YR Budgeted Headcount' = ```
+			
+			VAR _CurrentYear = 
+			    YEAR(MAX(DimDate[Month]))
+			RETURN
+			    CALCULATE(
+			       [Budget Headcount],
+			        FILTER(
+			            ALL(DimDate),
+			            YEAR(DimDate[Month]) = _CurrentYear
+			        )
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: f4bc1f2a-2d18-4738-a348-0bd957377f40
+
+	column ***
+		dataType: string
+		isHidden
+		lineageTag: 52107a11-196b-4e4c-b7ff-5f0c0d066195
+		summarizeBy: none
+		sourceColumn: ***
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _measures = m
+		mode: import
+		source =
+				let
+				  Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"***" = _t])
+				in
+				  Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

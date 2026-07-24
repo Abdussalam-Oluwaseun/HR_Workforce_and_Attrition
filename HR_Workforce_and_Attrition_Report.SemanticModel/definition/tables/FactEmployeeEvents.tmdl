@@ -1,0 +1,90 @@
+table FactEmployeeEvents
+	lineageTag: 68194ce9-12f3-454b-a256-49c509e47250
+
+	column EmployeeID
+		dataType: string
+		lineageTag: 2ed6f296-2a37-46d1-aad3-6cd986596be3
+		summarizeBy: none
+		sourceColumn: EmployeeID
+
+		annotation SummarizationSetBy = Automatic
+
+	column EventDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: fc68a122-7074-4e8a-8f3f-c4de89803de7
+		summarizeBy: none
+		sourceColumn: EventDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column EventType
+		dataType: string
+		lineageTag: dafb5a54-9741-4709-9503-45a17f1221ba
+		summarizeBy: none
+		sourceColumn: EventType
+
+		annotation SummarizationSetBy = Automatic
+
+	column DepartmentID
+		dataType: string
+		lineageTag: b1182279-578f-475c-b2e3-68a0f4514a8a
+		summarizeBy: none
+		sourceColumn: DepartmentID
+
+		annotation SummarizationSetBy = Automatic
+
+	column LocationID
+		dataType: string
+		lineageTag: 44622bbc-2c64-4d43-bfce-155f9e7b8bdf
+		summarizeBy: none
+		sourceColumn: LocationID
+
+		annotation SummarizationSetBy = Automatic
+
+	column TerminationType
+		dataType: string
+		lineageTag: ab4a0dfc-4ed3-415c-8f7e-c4c345baac5e
+		summarizeBy: none
+		sourceColumn: TerminationType
+
+		annotation SummarizationSetBy = Automatic
+
+	column TerminationReason
+		dataType: string
+		lineageTag: a04ec2e5-5156-455f-835a-5edcfbcfc95a
+		summarizeBy: none
+		sourceColumn: TerminationReason
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsRestructuringExit =
+			
+			FactEmployeeEvents[TerminationReason] IN {
+			    "Company Restructuring",
+			    "Role Eliminated"
+			}
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 33fc26ae-2c65-4937-b674-0449efbceb88
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactEmployeeEvents = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\Bamzz\Documents\Projects\Data space\HR_Workforce_and_Attrition\HR_Workforce_Planning_Attrition_Dataset_4U_Challenge.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "FactEmployeeEvents", Kind = "Sheet"]}[Data],
+				  #"Promoted headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"EmployeeID", type text}, {"EventDate", type date}, {"EventType", type text}, {"DepartmentID", type text}, {"Department", type text}, {"LocationID", type text}, {"Location", type text}, {"TerminationType", type text}, {"TerminationReason", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed column type",{"Department", "Location"})
+				in
+				  #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

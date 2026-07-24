@@ -1,0 +1,76 @@
+table DimLocation
+	lineageTag: 8a4279bc-515c-47a4-a1e5-fdc9bd051099
+
+	column LocationID
+		dataType: string
+		lineageTag: 359cabcf-6a7c-4a93-b11a-869d2bf33398
+		summarizeBy: none
+		sourceColumn: LocationID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Location
+		dataType: string
+		lineageTag: 9a0b50a6-10f4-4013-a221-febe9577c04e
+		summarizeBy: none
+		sourceColumn: Location
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 1de84d3d-b951-42a5-a4e5-0c735fdda3e4
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 5bef0509-ea9c-41ad-b44e-5958051cc123
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column TimeZone
+		dataType: string
+		lineageTag: d9b734d2-a0a5-46a8-aa0e-79dff10c5aaf
+		summarizeBy: none
+		sourceColumn: TimeZone
+
+		annotation SummarizationSetBy = Automatic
+
+	column Latitude
+		dataType: double
+		lineageTag: f8287e19-d2a1-4d3c-95c5-fa8afb49f0b3
+		summarizeBy: sum
+		sourceColumn: Latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Longitude
+		dataType: double
+		lineageTag: 9e48e164-689f-445a-83d1-d4c3cf9a83af
+		summarizeBy: sum
+		sourceColumn: Longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition DimLocation = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\Bamzz\Documents\Projects\Data space\HR_Workforce_and_Attrition\HR_Workforce_Planning_Attrition_Dataset_4U_Challenge.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "DimLocation", Kind = "Sheet"]}[Data],
+				  #"Promoted headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"LocationID", type text}, {"Location", type text}, {"Country", type text}, {"Region", type text}, {"TimeZone", type text}, {"Latitude", type number}, {"Longitude", type number}})
+				in
+				  #"Changed column type"
+
+	annotation PBI_ResultType = Table
+

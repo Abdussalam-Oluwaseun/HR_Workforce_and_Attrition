@@ -1,0 +1,91 @@
+table FactMonthlySnapshot
+	lineageTag: 090a78d6-2930-44c0-9948-918010d8d164
+
+	column Month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 499f1a60-0379-446a-bec3-77fdda34b340
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DepartmentID
+		dataType: string
+		lineageTag: dfc3fc3c-2bda-41c7-9a8c-2efa3dc4f913
+		summarizeBy: none
+		sourceColumn: DepartmentID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department
+		dataType: string
+		lineageTag: a46bc1d0-0e65-40f1-8cdd-ad933b798ae9
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = Automatic
+
+	column LocationID
+		dataType: string
+		lineageTag: e10fd413-f81c-4d83-84b2-2ac47d96ead4
+		summarizeBy: none
+		sourceColumn: LocationID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Level
+		dataType: string
+		lineageTag: a39abc7b-6476-42ad-a864-eba4d2e8e900
+		summarizeBy: none
+		sourceColumn: Level
+
+		annotation SummarizationSetBy = Automatic
+
+	column Headcount
+		dataType: int64
+		formatString: 0
+		lineageTag: c7a26617-6c41-4d8b-a80e-fa05e0d288ba
+		summarizeBy: sum
+		sourceColumn: Headcount
+
+		annotation SummarizationSetBy = Automatic
+
+	column FTE
+		dataType: double
+		lineageTag: c2683d50-005d-49a3-8e69-31f1136ba61b
+		summarizeBy: sum
+		sourceColumn: FTE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AvgTenureMonths
+		dataType: double
+		lineageTag: 6b9fc65b-96fc-43d3-a56c-071d7065163f
+		summarizeBy: sum
+		sourceColumn: AvgTenureMonths
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition FactMonthlySnapshot = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\Bamzz\Documents\Projects\Data space\HR_Workforce_and_Attrition\HR_Workforce_Planning_Attrition_Dataset_4U_Challenge.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "FactMonthlySnapshot", Kind = "Sheet"]}[Data],
+				  #"Promoted headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"Month", type date}, {"DepartmentID", type text}, {"Department", type text}, {"LocationID", type text}, {"Location", type text}, {"Level", type text}, {"Headcount", Int64.Type}, {"FTE", type number}, {"AvgTenureMonths", type number}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed column type",{"Location"})
+				in
+				  #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "HR_Workforce_and_Attrition_Report"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ce835719-3969-4976-b3db-74eee8c4e891"
+  }
+}

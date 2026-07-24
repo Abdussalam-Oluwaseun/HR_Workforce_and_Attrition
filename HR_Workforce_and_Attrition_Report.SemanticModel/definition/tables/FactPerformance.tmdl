@@ -1,0 +1,52 @@
+table FactPerformance
+	lineageTag: bd4811ac-01e7-44fa-8e9a-e74200e0c253
+
+	column EmployeeID
+		dataType: string
+		lineageTag: fc9fb581-d74d-4f1c-9de0-2c7e9f1c6084
+		summarizeBy: none
+		sourceColumn: EmployeeID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReviewDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 73b08d7d-1c19-48b5-a206-9d3954478756
+		summarizeBy: none
+		sourceColumn: ReviewDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column PerformanceRating
+		dataType: int64
+		formatString: 0
+		lineageTag: 699d6c84-ef61-4d83-8d11-03afb446f340
+		summarizeBy: sum
+		sourceColumn: PerformanceRating
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReviewType
+		dataType: string
+		lineageTag: 26690ed8-891e-4a73-90a5-12c7e3d2a7ff
+		summarizeBy: none
+		sourceColumn: ReviewType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactPerformance = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\Bamzz\Documents\Projects\Data space\HR_Workforce_and_Attrition\HR_Workforce_Planning_Attrition_Dataset_4U_Challenge.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "FactPerformance", Kind = "Sheet"]}[Data],
+				  #"Promoted headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"EmployeeID", type text}, {"ReviewDate", type date}, {"PerformanceRating", Int64.Type}, {"ReviewType", type text}})
+				in
+				  #"Changed column type"
+
+	annotation PBI_ResultType = Table
+

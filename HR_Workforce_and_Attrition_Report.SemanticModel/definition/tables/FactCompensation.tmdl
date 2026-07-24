@@ -1,0 +1,60 @@
+table FactCompensation
+	lineageTag: 77a02141-e629-4165-adf7-8c3841ae5bf6
+
+	column EmployeeID
+		dataType: string
+		lineageTag: 057c4dc9-c52e-423d-8b30-76908c1b7beb
+		summarizeBy: none
+		sourceColumn: EmployeeID
+
+		annotation SummarizationSetBy = Automatic
+
+	column EffectiveDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7f846e4c-7c27-4247-a1f9-d2a2d4328091
+		summarizeBy: none
+		sourceColumn: EffectiveDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column AnnualSalary
+		dataType: int64
+		formatString: 0
+		lineageTag: d8e510f4-939b-4ee6-9300-eed33d0f4aa4
+		summarizeBy: sum
+		sourceColumn: AnnualSalary
+
+		annotation SummarizationSetBy = Automatic
+
+	column Level
+		dataType: string
+		lineageTag: 9f38dfa0-6e59-4093-9051-1d76deb9adfd
+		summarizeBy: none
+		sourceColumn: Level
+
+		annotation SummarizationSetBy = Automatic
+
+	column Currency
+		dataType: string
+		lineageTag: e336e074-9329-4bab-b9c9-bde6b1d242ca
+		summarizeBy: none
+		sourceColumn: Currency
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactCompensation = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\Bamzz\Documents\Projects\Data space\HR_Workforce_and_Attrition\HR_Workforce_Planning_Attrition_Dataset_4U_Challenge.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "FactCompensation", Kind = "Sheet"]}[Data],
+				  #"Promoted headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"EmployeeID", type text}, {"EffectiveDate", type date}, {"AnnualSalary", Int64.Type}, {"Level", type text}, {"Currency", type text}})
+				in
+				  #"Changed column type"
+
+	annotation PBI_ResultType = Table
+

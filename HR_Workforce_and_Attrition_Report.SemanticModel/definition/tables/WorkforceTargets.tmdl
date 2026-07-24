@@ -1,0 +1,74 @@
+table WorkforceTargets
+	lineageTag: e98d2a9a-df4d-44ec-9be9-19221c425ef4
+
+	column Month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a6cf8fb8-508a-49d0-9322-70c926ca6111
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DepartmentID
+		dataType: string
+		lineageTag: 49d98db9-4748-4dc5-9f5d-06cdf3074b11
+		summarizeBy: none
+		sourceColumn: DepartmentID
+
+		annotation SummarizationSetBy = Automatic
+
+	column PlannedHeadcount
+		dataType: int64
+		formatString: 0
+		lineageTag: b39bd19d-84e6-4620-b852-d1727cb7732a
+		summarizeBy: sum
+		sourceColumn: PlannedHeadcount
+
+		annotation SummarizationSetBy = Automatic
+
+	column BudgetedFTE
+		dataType: double
+		lineageTag: 97ced7dc-9e5b-4097-98f3-a4abdcd4289b
+		summarizeBy: sum
+		sourceColumn: BudgetedFTE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column BudgetedSalaryCost
+		dataType: int64
+		formatString: 0
+		lineageTag: a5d977b0-e0aa-4bbe-bd25-ed3c3538ded0
+		summarizeBy: sum
+		sourceColumn: BudgetedSalaryCost
+
+		annotation SummarizationSetBy = Automatic
+
+	column PlanningScenario
+		dataType: string
+		lineageTag: f4c4d647-2317-4ebb-84d5-f4f5af2436fc
+		summarizeBy: none
+		sourceColumn: PlanningScenario
+
+		annotation SummarizationSetBy = Automatic
+
+	partition WorkforceTargets = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\Bamzz\Documents\Projects\Data space\HR_Workforce_and_Attrition\HR_Workforce_Planning_Attrition_Dataset_4U_Challenge.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "WorkforceTargets", Kind = "Sheet"]}[Data],
+				  #"Promoted headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"Month", type date}, {"DepartmentID", type text}, {"Department", type text}, {"PlannedHeadcount", Int64.Type}, {"BudgetedFTE", type number}, {"BudgetedSalaryCost", Int64.Type}, {"PlanningScenario", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed column type",{"Department"})
+				in
+				  #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
