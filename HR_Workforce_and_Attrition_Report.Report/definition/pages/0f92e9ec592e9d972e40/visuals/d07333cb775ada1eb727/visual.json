@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
-  "name": "759506690976cd9023e6",
+  "name": "d07333cb775ada1eb727",
   "position": {
-    "x": 1520,
-    "y": 119.99999999999999,
-    "z": 1000,
+    "x": 336,
+    "y": 120.00000000000001,
+    "z": 0,
     "height": 184,
     "width": 352,
-    "tabOrder": 1000
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "cardVisual",
@@ -23,11 +23,11 @@
                       "Entity": "_measures"
                     }
                   },
-                  "Property": "Recruitment Fill Rate %"
+                  "Property": "Rolling 12M Attrition Rate"
                 }
               },
-              "queryRef": "_measures.Recruitment Fill Rate %",
-              "nativeQueryRef": "Recruitment Fill Rate %"
+              "queryRef": "_measures.Rolling 12M Attrition Rate",
+              "nativeQueryRef": "Rolling 12M Attrition Rate"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_measures"
                   }
                 },
-                "Property": "Recruitment Fill Rate %"
+                "Property": "Rolling 12M Attrition Rate"
               }
             },
             "direction": "Descending"
@@ -83,6 +83,13 @@
         },
         {
           "properties": {
+            "paddingIndividual": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
             "paddingUniform": {
               "expr": {
                 "Literal": {
@@ -124,6 +131,21 @@
           }
         },
         {
+          "properties": {},
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_measures.Rolling 12M Attrition Rate",
+            "id": "field-420d5f40-073f-8cac-afb8-3cdd9d8825a2",
+            "order": 2
+          }
+        },
+        {
           "properties": {
             "value": {
               "expr": {
@@ -133,7 +155,7 @@
                       "Entity": "_measures"
                     }
                   },
-                  "Property": "Net Fill Rate %"
+                  "Property": "Attrition Rate (All Exits)"
                 }
               }
             }
@@ -146,9 +168,9 @@
                 }
               }
             ],
-            "metadata": "_measures.Recruitment Fill Rate %",
-            "id": "field-052357d4-653f-de0b-d65e-af3ac66eebff",
-            "order": 0
+            "metadata": "_measures.Rolling 12M Attrition Rate",
+            "id": "field-0a2e2ef8-5838-2f9e-58de-f3487e198568",
+            "order": 2
           }
         }
       ],
@@ -437,10 +459,25 @@
                   "Value": "12D"
                 }
               }
+            },
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Over time'"
+                }
+              }
             }
           },
           "selector": {
-            "metadata": "_measures.Recruitment Fill Rate %"
+            "metadata": "_measures.Rolling 12M Attrition Rate",
+            "id": "field-0a2e2ef8-5838-2f9e-58de-f3487e198568"
           }
         }
       ],
@@ -493,7 +530,24 @@
             }
           },
           "selector": {
-            "metadata": "_measures.Recruitment Fill Rate %"
+            "metadata": "_measures.Rolling 12M Attrition Rate",
+            "id": "field-0a2e2ef8-5838-2f9e-58de-f3487e198568"
+          }
+        }
+      ],
+      "cardImage": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
           }
         }
       ]

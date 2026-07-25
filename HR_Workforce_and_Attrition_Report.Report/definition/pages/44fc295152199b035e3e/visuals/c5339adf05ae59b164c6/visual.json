@@ -3,9 +3,9 @@
   "name": "c5339adf05ae59b164c6",
   "position": {
     "x": 336,
-    "y": 128,
+    "y": 120.00000000000001,
     "z": 0,
-    "height": 176,
+    "height": 184,
     "width": 352,
     "tabOrder": 0
   },
@@ -142,6 +142,34 @@
             ],
             "metadata": "_measures.Rolling 12M Attrition Rate",
             "id": "field-420d5f40-073f-8cac-afb8-3cdd9d8825a2",
+            "order": 2
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_measures"
+                    }
+                  },
+                  "Property": "Attrition Rate (All Exits)"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_measures.Rolling 12M Attrition Rate",
+            "id": "field-0a2e2ef8-5838-2f9e-58de-f3487e198568",
             "order": 2
           }
         }
@@ -422,6 +450,35 @@
             "metadata": "_measures.Rolling 12M Attrition Rate",
             "id": "field-56d3c82e-8853-9941-7665-575a431b52ee"
           }
+        },
+        {
+          "properties": {
+            "titleFontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Over time'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_measures.Rolling 12M Attrition Rate",
+            "id": "field-0a2e2ef8-5838-2f9e-58de-f3487e198568"
+          }
         }
       ],
       "referenceLabelValue": [
@@ -460,6 +517,21 @@
           "selector": {
             "metadata": "_measures.Rolling 12M Attrition Rate",
             "id": "field-56d3c82e-8853-9941-7665-575a431b52ee"
+          }
+        },
+        {
+          "properties": {
+            "valueFontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_measures.Rolling 12M Attrition Rate",
+            "id": "field-0a2e2ef8-5838-2f9e-58de-f3487e198568"
           }
         }
       ],

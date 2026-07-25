@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
-  "name": "759506690976cd9023e6",
+  "name": "fb99c041dd1ce560703b",
   "position": {
-    "x": 1520,
+    "x": 1128,
     "y": 119.99999999999999,
-    "z": 1000,
+    "z": 3000,
     "height": 184,
     "width": 352,
-    "tabOrder": 1000
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -23,11 +23,11 @@
                       "Entity": "_measures"
                     }
                   },
-                  "Property": "Recruitment Fill Rate %"
+                  "Property": "Organic Terminations"
                 }
               },
-              "queryRef": "_measures.Recruitment Fill Rate %",
-              "nativeQueryRef": "Recruitment Fill Rate %"
+              "queryRef": "_measures.Organic Terminations",
+              "nativeQueryRef": "Organic Terminations"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_measures"
                   }
                 },
-                "Property": "Recruitment Fill Rate %"
+                "Property": "Organic Terminations"
               }
             },
             "direction": "Descending"
@@ -150,6 +150,49 @@
             "id": "field-052357d4-653f-de0b-d65e-af3ac66eebff",
             "order": 0
           }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_measures.Organic Terminations",
+            "id": "field-e99b1891-0a52-b262-1297-51e8e3080673",
+            "order": 0
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_measures"
+                    }
+                  },
+                  "Property": "dummy"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_measures.Organic Terminations",
+            "id": "field-5daec0df-5a7b-2499-05cd-9464de86ec28",
+            "order": 0
+          }
         }
       ],
       "outline": [
@@ -231,7 +274,7 @@
             "horizontalAlignment": {
               "expr": {
                 "Literal": {
-                  "Value": "'left'"
+                  "Value": "'right'"
                 }
               }
             }
@@ -431,16 +474,16 @@
         },
         {
           "properties": {
-            "titleFontSize": {
+            "show": {
               "expr": {
                 "Literal": {
-                  "Value": "12D"
+                  "Value": "false"
                 }
               }
             }
           },
           "selector": {
-            "metadata": "_measures.Recruitment Fill Rate %"
+            "metadata": "_measures.Organic Terminations"
           }
         }
       ],
@@ -484,16 +527,16 @@
         },
         {
           "properties": {
-            "valueFontSize": {
+            "show": {
               "expr": {
                 "Literal": {
-                  "Value": "14D"
+                  "Value": "false"
                 }
               }
             }
           },
           "selector": {
-            "metadata": "_measures.Recruitment Fill Rate %"
+            "metadata": "_measures.Organic Terminations"
           }
         }
       ]

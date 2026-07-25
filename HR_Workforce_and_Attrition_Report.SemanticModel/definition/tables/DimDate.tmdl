@@ -2,10 +2,6 @@ table DimDate
 	lineageTag: 8179a5ce-88e9-42ba-b7d0-6d27e8fbfb02
 	dataCategory: Time
 
-	measure Measure = DATEADD(DimDate[Date],1,MONTH)
-		formatString: General Date
-		lineageTag: 45f742f8-6ed5-4d88-89d9-f6da46c73785
-
 	column Date
 		dataType: dateTime
 		isKey
@@ -49,6 +45,9 @@ table DimDate
 		lineageTag: 10503416-c9eb-4bcd-bda7-48a870dad8f8
 		summarizeBy: none
 		sourceColumn: MonthName
+		sortByColumn: MonthNumber
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 

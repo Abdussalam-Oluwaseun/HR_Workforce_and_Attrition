@@ -12,6 +12,7 @@ table DimLocation
 	column Location
 		dataType: string
 		lineageTag: 9a0b50a6-10f4-4013-a221-febe9577c04e
+		dataCategory: StateOrProvince
 		summarizeBy: none
 		sourceColumn: Location
 
@@ -20,6 +21,7 @@ table DimLocation
 	column Country
 		dataType: string
 		lineageTag: 1de84d3d-b951-42a5-a4e5-0c735fdda3e4
+		dataCategory: County
 		summarizeBy: none
 		sourceColumn: Country
 
@@ -28,6 +30,7 @@ table DimLocation
 	column Region
 		dataType: string
 		lineageTag: 5bef0509-ea9c-41ad-b44e-5958051cc123
+		dataCategory: Country
 		summarizeBy: none
 		sourceColumn: Region
 
@@ -44,6 +47,7 @@ table DimLocation
 	column Latitude
 		dataType: double
 		lineageTag: f8287e19-d2a1-4d3c-95c5-fa8afb49f0b3
+		dataCategory: Latitude
 		summarizeBy: sum
 		sourceColumn: Latitude
 
@@ -54,12 +58,28 @@ table DimLocation
 	column Longitude
 		dataType: double
 		lineageTag: 9e48e164-689f-445a-83d1-d4c3cf9a83af
+		dataCategory: Longitude
 		summarizeBy: sum
 		sourceColumn: Longitude
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	hierarchy 'Region Hierarchy'
+		lineageTag: 7cc83e68-5dca-4b8b-94da-9d18dd320858
+
+		level Region
+			lineageTag: 361a9028-e7c7-42c5-80e0-0e6ad43cd8c8
+			column: Region
+
+		level Country
+			lineageTag: 99e66ef9-d49e-4a4f-ad9e-1ecfc672d91e
+			column: Country
+
+		level Location
+			lineageTag: 968aae3c-b514-441b-808c-eab427e70530
+			column: Location
 
 	partition DimLocation = m
 		mode: import

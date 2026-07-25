@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
-  "name": "759506690976cd9023e6",
+  "name": "6310cea80b1010e48e1a",
   "position": {
-    "x": 1520,
-    "y": 119.99999999999999,
-    "z": 1000,
+    "x": 736,
+    "y": 120.00000000000001,
+    "z": 2000,
     "height": 184,
     "width": 352,
-    "tabOrder": 1000
+    "tabOrder": 2000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -23,11 +23,11 @@
                       "Entity": "_measures"
                     }
                   },
-                  "Property": "Recruitment Fill Rate %"
+                  "Property": "Total Terminations"
                 }
               },
-              "queryRef": "_measures.Recruitment Fill Rate %",
-              "nativeQueryRef": "Recruitment Fill Rate %"
+              "queryRef": "_measures.Total Terminations",
+              "nativeQueryRef": "Total Terminations"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_measures"
                   }
                 },
-                "Property": "Recruitment Fill Rate %"
+                "Property": "Total Terminations"
               }
             },
             "direction": "Descending"
@@ -150,6 +150,90 @@
             "id": "field-052357d4-653f-de0b-d65e-af3ac66eebff",
             "order": 0
           }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_measures"
+                    }
+                  },
+                  "Property": "Current YR Budgeted FTE"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_measures.Current FTE",
+            "id": "field-26bde4a4-35ac-104f-8899-00e6a9fa6d6a",
+            "order": 0
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_measures"
+                    }
+                  },
+                  "Property": "Current YR Budgeted Headcount"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_measures.Current YR Headcount",
+            "id": "field-22f9a81a-8356-3a73-4d26-763868b324fe",
+            "order": 0
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_measures"
+                    }
+                  },
+                  "Property": "dummy"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_measures.Total Terminations",
+            "id": "field-a3b9cca4-7a3a-ad2d-4248-6eea36057c62",
+            "order": 0
+          }
         }
       ],
       "outline": [
@@ -231,7 +315,7 @@
             "horizontalAlignment": {
               "expr": {
                 "Literal": {
-                  "Value": "'left'"
+                  "Value": "'right'"
                 }
               }
             }
@@ -431,6 +515,20 @@
         },
         {
           "properties": {
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Budgeted'"
+                }
+              }
+            },
             "titleFontSize": {
               "expr": {
                 "Literal": {
@@ -440,7 +538,22 @@
             }
           },
           "selector": {
-            "metadata": "_measures.Recruitment Fill Rate %"
+            "metadata": "_measures.Current YR Headcount",
+            "id": "field-22f9a81a-8356-3a73-4d26-763868b324fe"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_measures.Total Terminations"
           }
         }
       ],
@@ -493,7 +606,22 @@
             }
           },
           "selector": {
-            "metadata": "_measures.Recruitment Fill Rate %"
+            "metadata": "_measures.Current YR Headcount",
+            "id": "field-22f9a81a-8356-3a73-4d26-763868b324fe"
+          }
+        },
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_measures.Total Terminations"
           }
         }
       ]

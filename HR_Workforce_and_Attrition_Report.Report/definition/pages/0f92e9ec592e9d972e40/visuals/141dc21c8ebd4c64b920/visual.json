@@ -1,9 +1,9 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
-  "name": "759506690976cd9023e6",
+  "name": "141dc21c8ebd4c64b920",
   "position": {
     "x": 1520,
-    "y": 119.99999999999999,
+    "y": 120,
     "z": 1000,
     "height": 184,
     "width": 352,
@@ -23,11 +23,11 @@
                       "Entity": "_measures"
                     }
                   },
-                  "Property": "Recruitment Fill Rate %"
+                  "Property": "Structural Exits"
                 }
               },
-              "queryRef": "_measures.Recruitment Fill Rate %",
-              "nativeQueryRef": "Recruitment Fill Rate %"
+              "queryRef": "_measures.Structural Exits",
+              "nativeQueryRef": "Structural Exits"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_measures"
                   }
                 },
-                "Property": "Recruitment Fill Rate %"
+                "Property": "Structural Exits"
               }
             },
             "direction": "Descending"
@@ -133,7 +133,7 @@
                       "Entity": "_measures"
                     }
                   },
-                  "Property": "Net Fill Rate %"
+                  "Property": "dummy"
                 }
               }
             }
@@ -146,8 +146,8 @@
                 }
               }
             ],
-            "metadata": "_measures.Recruitment Fill Rate %",
-            "id": "field-052357d4-653f-de0b-d65e-af3ac66eebff",
+            "metadata": "_measures.Structural Exits",
+            "id": "field-29a8aa9f-941c-7283-5cc7-6e6eed824c49",
             "order": 0
           }
         }
@@ -431,16 +431,16 @@
         },
         {
           "properties": {
-            "titleFontSize": {
+            "show": {
               "expr": {
                 "Literal": {
-                  "Value": "12D"
+                  "Value": "false"
                 }
               }
             }
           },
           "selector": {
-            "metadata": "_measures.Recruitment Fill Rate %"
+            "metadata": "_measures.Structural Exits"
           }
         }
       ],
@@ -484,16 +484,16 @@
         },
         {
           "properties": {
-            "valueFontSize": {
+            "show": {
               "expr": {
                 "Literal": {
-                  "Value": "14D"
+                  "Value": "false"
                 }
               }
             }
           },
           "selector": {
-            "metadata": "_measures.Recruitment Fill Rate %"
+            "metadata": "_measures.Structural Exits"
           }
         }
       ]

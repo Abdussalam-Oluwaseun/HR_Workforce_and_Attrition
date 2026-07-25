@@ -3,9 +3,9 @@
   "name": "93d6399bdb22d6942750",
   "position": {
     "x": 736,
-    "y": 128,
+    "y": 120.00000000000001,
     "z": 2000,
-    "height": 176,
+    "height": 184,
     "width": 352,
     "tabOrder": 2000
   },
@@ -23,11 +23,11 @@
                       "Entity": "_measures"
                     }
                   },
-                  "Property": "Current FTE"
+                  "Property": "Current YR Headcount"
                 }
               },
-              "queryRef": "_measures.Current FTE",
-              "nativeQueryRef": "Current FTE"
+              "queryRef": "_measures.Current YR Headcount",
+              "nativeQueryRef": "Current YR Headcount"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_measures"
                   }
                 },
-                "Property": "Current FTE"
+                "Property": "Current YR Headcount"
               }
             },
             "direction": "Descending"
@@ -161,7 +161,7 @@
                       "Entity": "_measures"
                     }
                   },
-                  "Property": "Current Budgeted FTE"
+                  "Property": "Current YR Budgeted FTE"
                 }
               }
             }
@@ -176,6 +176,34 @@
             ],
             "metadata": "_measures.Current FTE",
             "id": "field-26bde4a4-35ac-104f-8899-00e6a9fa6d6a",
+            "order": 0
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_measures"
+                    }
+                  },
+                  "Property": "Current YR Budgeted Headcount"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_measures.Current YR Headcount",
+            "id": "field-22f9a81a-8356-3a73-4d26-763868b324fe",
             "order": 0
           }
         }
@@ -259,7 +287,7 @@
             "horizontalAlignment": {
               "expr": {
                 "Literal": {
-                  "Value": "'left'"
+                  "Value": "'right'"
                 }
               }
             }
@@ -456,6 +484,35 @@
             "metadata": "_measures.Rolling 12M Attrition Rate",
             "id": "field-56d3c82e-8853-9941-7665-575a431b52ee"
           }
+        },
+        {
+          "properties": {
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Budgeted'"
+                }
+              }
+            },
+            "titleFontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_measures.Current YR Headcount",
+            "id": "field-22f9a81a-8356-3a73-4d26-763868b324fe"
+          }
         }
       ],
       "referenceLabelValue": [
@@ -494,6 +551,21 @@
           "selector": {
             "metadata": "_measures.Rolling 12M Attrition Rate",
             "id": "field-56d3c82e-8853-9941-7665-575a431b52ee"
+          }
+        },
+        {
+          "properties": {
+            "valueFontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_measures.Current YR Headcount",
+            "id": "field-22f9a81a-8356-3a73-4d26-763868b324fe"
           }
         }
       ]

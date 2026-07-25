@@ -11,7 +11,7 @@
       "type": "SharedResources"
     },
     "customTheme": {
-      "name": "Drill_Down_Visuals_theme_for_a28790112976015425.json",
+      "name": "Drill_Down_Visuals_theme_for_a6270008876071675.json",
       "reportVersionAtImport": {
         "visual": "2.11.0",
         "report": "3.4.0",
@@ -55,6 +55,12 @@
       }
     ]
   },
+  "publicCustomVisuals": [
+    "ZoomChartsDrillDownPieProC062D62DA5CE45ECB95B7B1D0E5DA558",
+    "ZoomChartsFacetChartPaidE77E4ED357DC402ABA005987437CF500",
+    "ZoomChartsDrillDownMapPro6AFEEB10499543F282BD06EF315D5EAA",
+    "ZoomChartsDrillDownShapeMapPro6AFEEB10499543F282BD06EF315D5EAA"
+  ],
   "resourcePackages": [
     {
       "name": "SharedResources",
@@ -72,8 +78,8 @@
       "type": "RegisteredResources",
       "items": [
         {
-          "name": "Drill_Down_Visuals_theme_for_a28790112976015425.json",
-          "path": "Drill_Down_Visuals_theme_for_a28790112976015425.json",
+          "name": "Drill_Down_Visuals_theme_for_a6270008876071675.json",
+          "path": "Drill_Down_Visuals_theme_for_a6270008876071675.json",
           "type": "CustomTheme"
         },
         {

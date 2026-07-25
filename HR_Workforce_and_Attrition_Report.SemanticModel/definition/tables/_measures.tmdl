@@ -85,10 +85,9 @@ table _measures
 			    [Avg Monthly Headcount],
 			    0
 			)
+		formatString: 0.00%;-0.00%;0.00%
 		displayFolder: Attrition
 		lineageTag: 467956fc-df63-4a84-8813-01c6d941f73f
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Voluntary Attrition Rate' =
 			
@@ -248,23 +247,37 @@ table _measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Current FTE' =
+	measure 'Current YR FTE' = ```
 			
-			CALCULATE(
-			    SUM(FactMonthlySnapshot[FTE]),
-			    LASTDATE(DimDate[Month])
-			)
+			VAR _CurrentYear = 
+			    YEAR(MAX(DimDate[Month]))
+			RETURN
+			    CALCULATE(
+			       [Actual FTE],
+			        FILTER(
+			            ALL(DimDate),
+			            YEAR(DimDate[Month]) = _CurrentYear
+			        )
+			    )
+			```
 		displayFolder: FTE
 		lineageTag: 91def159-f111-4001-af7c-c8d10581ab36
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Current Budgeted FTE' =
+	measure 'Current YR Budgeted FTE' = ```
 			
-			CALCULATE(
-			    SUM(WorkforceTargets[BudgetedFTE]),
-			    LASTDATE(DimDate[Month])
-			)
+			VAR _CurrentYear = 
+			    YEAR(MAX(DimDate[Month]))
+			RETURN
+			    CALCULATE(
+			       [Budgeted FTE],
+			        FILTER(
+			            ALL(DimDate),
+			            YEAR(DimDate[Month]) = _CurrentYear
+			        )
+			    )
+			```
 		displayFolder: FTE
 		lineageTag: 751ec560-8d9f-4a7a-ae5d-23c3d7547d81
 
@@ -273,8 +286,8 @@ table _measures
 	measure 'FTE Bullet Chart' =
 			
 			
-			VAR _ActualFTE  = [Current FTE]
-			VAR _BudgetFTE  = [Current Budgeted FTE]
+			VAR _ActualFTE  = [Current YR FTE]
+			VAR _BudgetFTE  = [Current YR Budgeted FTE]
 			
 			-- Guard against zero budget to avoid division errors
 			VAR _SafeBudget = IF(_BudgetFTE = 0, 1, _BudgetFTE)
@@ -345,6 +358,7 @@ table _measures
 
 	measure 'Actual Headcount' = SUM(FactMonthlySnapshot[Headcount])
 		formatString: 0
+		displayFolder: Headcount
 		lineageTag: 33f441fc-6a6c-431c-878b-d5933ffbd31b
 
 	measure 'Current YR Headcount' = ```
@@ -361,10 +375,12 @@ table _measures
 			    )
 			```
 		formatString: 0
+		displayFolder: Headcount
 		lineageTag: 80c7983a-23c7-4968-9a41-400b55d38191
 
 	measure 'Budget Headcount' = SUM(WorkforceTargets[PlannedHeadcount])
 		formatString: 0
+		displayFolder: Headcount
 		lineageTag: 4940ae95-8c48-4583-bac7-187e527bc409
 
 	measure 'Current YR Budgeted Headcount' = ```
@@ -382,7 +398,16 @@ table _measures
 			
 			```
 		formatString: 0
+		displayFolder: Headcount
 		lineageTag: f4bc1f2a-2d18-4738-a348-0bd957377f40
+
+	measure 'Headcount diff' = [Budget Headcount] - [Actual Headcount]
+		formatString: 0
+		lineageTag: 3bb15512-da04-4295-85bf-3cfe13a8d1d5
+
+	measure dummy = 0
+		formatString: 0
+		lineageTag: 1a3335d8-be14-42a1-882d-99800a645da3
 
 	column ***
 		dataType: string

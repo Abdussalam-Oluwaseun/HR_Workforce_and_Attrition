@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "e42d5a2d6add656208b2",
   "position": {
-    "x": 1520,
-    "y": 128,
-    "z": 2001,
-    "height": 176,
+    "x": 1128,
+    "y": 119.99999999999999,
+    "z": 3000,
+    "height": 184,
     "width": 352,
-    "tabOrder": 2001
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -23,11 +23,11 @@
                       "Entity": "_measures"
                     }
                   },
-                  "Property": "Current FTE"
+                  "Property": "Current YR FTE"
                 }
               },
               "queryRef": "_measures.Current FTE",
-              "nativeQueryRef": "Current FTE"
+              "nativeQueryRef": "Current YR FTE"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_measures"
                   }
                 },
-                "Property": "Current FTE"
+                "Property": "Current YR FTE"
               }
             },
             "direction": "Descending"
@@ -161,7 +161,7 @@
                       "Entity": "_measures"
                     }
                   },
-                  "Property": "Current Budgeted FTE"
+                  "Property": "Current YR Budgeted FTE"
                 }
               }
             }
@@ -259,7 +259,7 @@
             "horizontalAlignment": {
               "expr": {
                 "Literal": {
-                  "Value": "'left'"
+                  "Value": "'right'"
                 }
               }
             }
@@ -456,6 +456,42 @@
             "metadata": "_measures.Rolling 12M Attrition Rate",
             "id": "field-56d3c82e-8853-9941-7665-575a431b52ee"
           }
+        },
+        {
+          "properties": {
+            "titleFontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_measures.Current FTE"
+          }
+        },
+        {
+          "properties": {
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Budgeted'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_measures.Current FTE",
+            "id": "field-26bde4a4-35ac-104f-8899-00e6a9fa6d6a"
+          }
         }
       ],
       "referenceLabelValue": [
@@ -494,6 +530,20 @@
           "selector": {
             "metadata": "_measures.Rolling 12M Attrition Rate",
             "id": "field-56d3c82e-8853-9941-7665-575a431b52ee"
+          }
+        },
+        {
+          "properties": {
+            "valueFontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_measures.Current FTE"
           }
         }
       ]
