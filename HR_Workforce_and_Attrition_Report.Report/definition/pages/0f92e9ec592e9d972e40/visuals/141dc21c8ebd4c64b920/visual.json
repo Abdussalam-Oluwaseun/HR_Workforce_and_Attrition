@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "141dc21c8ebd4c64b920",
   "position": {
-    "x": 1520,
-    "y": 120,
-    "z": 1000,
-    "height": 184,
-    "width": 352,
-    "tabOrder": 1000
+    "x": 1536,
+    "y": 112.00000000000001,
+    "z": 0,
+    "height": 128,
+    "width": 336,
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "cardVisual",
@@ -23,11 +23,11 @@
                       "Entity": "_measures"
                     }
                   },
-                  "Property": "Structural Exits"
+                  "Property": "Avg Days Absent per Employee"
                 }
               },
-              "queryRef": "_measures.Structural Exits",
-              "nativeQueryRef": "Structural Exits"
+              "queryRef": "_measures.Avg Days Absent per Employee",
+              "nativeQueryRef": "Avg Days Absent per Employee"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_measures"
                   }
                 },
-                "Property": "Structural Exits"
+                "Property": "Avg Days Absent per Employee"
               }
             },
             "direction": "Descending"
@@ -133,7 +133,7 @@
                       "Entity": "_measures"
                     }
                   },
-                  "Property": "dummy"
+                  "Property": "_dummy"
                 }
               }
             }

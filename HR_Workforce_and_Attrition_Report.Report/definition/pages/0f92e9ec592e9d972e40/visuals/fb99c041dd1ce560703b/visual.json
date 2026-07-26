@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "fb99c041dd1ce560703b",
   "position": {
-    "x": 1128,
-    "y": 119.99999999999999,
-    "z": 3000,
-    "height": 184,
+    "x": 1136,
+    "y": 112.00000000000001,
+    "z": 2000,
+    "height": 128,
     "width": 352,
-    "tabOrder": 3000
+    "tabOrder": 2000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -23,11 +23,11 @@
                       "Entity": "_measures"
                     }
                   },
-                  "Property": "Organic Terminations"
+                  "Property": "Avg Performance Rating"
                 }
               },
-              "queryRef": "_measures.Organic Terminations",
-              "nativeQueryRef": "Organic Terminations"
+              "queryRef": "_measures.Avg Performance Rating",
+              "nativeQueryRef": "Avg Performance Rating"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_measures"
                   }
                 },
-                "Property": "Organic Terminations"
+                "Property": "Avg Performance Rating"
               }
             },
             "direction": "Descending"
@@ -176,7 +176,7 @@
                       "Entity": "_measures"
                     }
                   },
-                  "Property": "dummy"
+                  "Property": "_dummy"
                 }
               }
             }

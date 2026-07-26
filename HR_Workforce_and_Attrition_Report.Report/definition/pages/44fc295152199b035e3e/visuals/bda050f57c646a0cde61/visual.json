@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "bda050f57c646a0cde61",
   "position": {
-    "x": 728,
-    "y": 184,
+    "x": 736,
+    "y": 176,
     "z": 4000,
-    "height": 176,
-    "width": 352,
+    "height": 192.00000000000003,
+    "width": 320,
     "tabOrder": 4000
   },
   "visual": {
@@ -65,18 +65,6 @@
                     }
                   }
                 },
-                "lowerBound": {
-                  "expr": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "_measures"
-                        }
-                      },
-                      "Property": "Current YR Budgeted Headcount"
-                    }
-                  }
-                },
                 "upperBound": {
                   "expr": {
                     "Measure": {
@@ -130,7 +118,7 @@
             "barWidth": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "4D"
                 }
               }
             },
@@ -159,6 +147,18 @@
               "expr": {
                 "Literal": {
                   "Value": "false"
+                }
+              }
+            },
+            "barColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 3,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
             }

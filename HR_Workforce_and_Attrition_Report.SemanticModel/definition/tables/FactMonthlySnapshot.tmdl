@@ -46,7 +46,7 @@ table FactMonthlySnapshot
 
 	column Headcount
 		dataType: int64
-		formatString: 0
+		formatString: #,0
 		lineageTag: c7a26617-6c41-4d8b-a80e-fa05e0d288ba
 		summarizeBy: sum
 		sourceColumn: Headcount

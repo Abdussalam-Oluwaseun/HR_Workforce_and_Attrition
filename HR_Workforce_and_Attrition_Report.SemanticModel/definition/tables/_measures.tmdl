@@ -62,10 +62,9 @@ table _measures
 			    VALUES(FactMonthlySnapshot[Month]),
 			    CALCULATE(SUM(FactMonthlySnapshot[Headcount]))
 			)
+		formatString: #,0.00
 		displayFolder: Attrition
 		lineageTag: 1e4ba84f-b35e-44a1-b92c-2f09b8dc02f5
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Attrition Rate (All Exits)' =
 			
@@ -164,7 +163,7 @@ table _measures
 	measure 'Open Requisitions' =
 			
 			SUM(FactRecruitment[OpenRequisitions])
-		formatString: 0
+		formatString: #,0
 		displayFolder: Requisition
 		lineageTag: 349bde0a-88b1-4d7d-b875-63fd68a62dbc
 
@@ -226,10 +225,11 @@ table _measures
 			    [Filled Requisitions],
 			    0
 			)
+		formatString: 0
 		displayFolder: Requisition
 		lineageTag: 2c2f216a-e624-445d-9542-91d32b888099
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isDecimal":true}
 
 	measure 'Budgeted FTE' =
 			
@@ -283,81 +283,8 @@ table _measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'FTE Bullet Chart' =
-			
-			
-			VAR _ActualFTE  = [Current YR FTE]
-			VAR _BudgetFTE  = [Current YR Budgeted FTE]
-			
-			-- Guard against zero budget to avoid division errors
-			VAR _SafeBudget = IF(_BudgetFTE = 0, 1, _BudgetFTE)
-			
-			-- ── Scaling ───────────────────────────────────────────────────────────
-			-- Track represents 120% of budget so overstaffing is still visible
-			VAR _MaxFTE  = _SafeBudget * 1.20
-			VAR _TrackW  = 300
-			VAR _Scale   = DIVIDE(_TrackW, _MaxFTE, 0)
-			
-			-- ── Bar & Marker positions (px) ───────────────────────────────────────
-			-- Comparative band: ends exactly at 100% of budget
-			VAR _CompW   = MIN(ROUND(_SafeBudget * _Scale, 0), _TrackW)
-			
-			-- Actual bar: current FTE scaled proportionally, capped at track width
-			VAR _ActualW = MIN(MAX(ROUND(_ActualFTE * _Scale, 0), 0), _TrackW)
-			
-			-- Target line: sits at the budget position (same as _CompW)
-			VAR _TargetX = _CompW
-			VAR _TriX1   = _TargetX - 6
-			VAR _TriX2   = _TargetX + 6
-			
-			-- ── Actual bar colour (self-explanatory without a legend) ─────────────
-			-- 🔴 Red   = understaffed  (actual < 95% of budget)
-			-- 🟢 Green = on plan       (within ±5% of budget)
-			-- 🔵 Blue  = overstaffed   (actual > 105% of budget)
-			VAR _BarColor =
-			    SWITCH(
-			        TRUE(),
-			        _ActualFTE < _SafeBudget * 0.95, "%23C0392B",
-			        _ActualFTE > _SafeBudget * 1.05, "%232471A3",
-			        "%231F3A2E"
-			    )
-			
-			-- ── Label ─────────────────────────────────────────────────────────────
-			-- Shows "999.0 / 1,020.0" (actual / budget)
-			VAR _ActualLabel = FORMAT(_ActualFTE,  "#,##0.0")
-			VAR _BudgetLabel = FORMAT(_BudgetFTE, "#,##0.0")
-			VAR _Label       = _ActualLabel & " / " & _BudgetLabel
-			
-			RETURN
-			"data:image/svg+xml;utf8," &
-			"<svg xmlns='http://www.w3.org/2000/svg' width='460' height='24'>" &
-			
-			-- Background track (full range = 120% of budget)
-			"<rect width='" & _TrackW & "' height='24' rx='4' fill='%23F4EFE3'/>" &
-			
-			-- Comparative band: budget zone (lighter fill, ends at budget)
-			"<rect width='" & _CompW & "' height='16' y='4' rx='3' fill='%23B7C2AE'/>" &
-			
-			-- Actual FTE bar (colour-coded by status)
-			"<rect width='" & _ActualW & "' height='8' y='8' rx='2' fill='" & _BarColor & "'/>" &
-			
-			-- Target marker triangle (downward-pointing arrow at budget line)
-			"<polygon points='" & _TriX1 & ",0 " & _TriX2 & ",0 " & _TargetX & ",10' fill='%23B08D3C'/>" &
-			
-			-- Target marker vertical line
-			"<line x1='" & _TargetX & "' y1='0' x2='" & _TargetX & "' y2='24'" &
-			" stroke='%23B08D3C' stroke-width='2'/>" &
-			
-			-- Value label: Actual / Budget
-			"<text x='308' y='17' font-family='Inter' font-size='11' fill='%236B6558'>" &
-			_Label & "</text>" &
-			
-			"</svg>"
-		lineageTag: e0e8cd38-0252-4be6-82c5-27fc2e79c3dd
-		dataCategory: ImageUrl
-
 	measure 'Actual Headcount' = SUM(FactMonthlySnapshot[Headcount])
-		formatString: 0
+		formatString: #,0
 		displayFolder: Headcount
 		lineageTag: 33f441fc-6a6c-431c-878b-d5933ffbd31b
 
@@ -374,12 +301,12 @@ table _measures
 			        )
 			    )
 			```
-		formatString: 0
+		formatString: #,0
 		displayFolder: Headcount
 		lineageTag: 80c7983a-23c7-4968-9a41-400b55d38191
 
 	measure 'Budget Headcount' = SUM(WorkforceTargets[PlannedHeadcount])
-		formatString: 0
+		formatString: #,0
 		displayFolder: Headcount
 		lineageTag: 4940ae95-8c48-4583-bac7-187e527bc409
 
@@ -397,17 +324,301 @@ table _measures
 			    )
 			
 			```
-		formatString: 0
+		formatString: #,0
 		displayFolder: Headcount
 		lineageTag: f4bc1f2a-2d18-4738-a348-0bd957377f40
 
-	measure 'Headcount diff' = [Budget Headcount] - [Actual Headcount]
-		formatString: 0
-		lineageTag: 3bb15512-da04-4295-85bf-3cfe13a8d1d5
-
-	measure dummy = 0
+	measure _dummy = 0
 		formatString: 0
 		lineageTag: 1a3335d8-be14-42a1-882d-99800a645da3
+
+	measure 'Avg Enagagement Score' = AVERAGE(FactEngagement[EngagementScore])
+		displayFolder: Performance
+		lineageTag: 35075216-8b87-41d3-b5f9-cb783ba80230
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Performance Rating' = AVERAGE(FactPerformance[PerformanceRating])
+		displayFolder: Performance
+		lineageTag: 4cdf4eac-05a8-4711-8ef0-31db165dfed1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Disengaged Employee %' =
+			
+			VAR _DisengagedCount =
+			    CALCULATE(
+			        DISTINCTCOUNT( FactEngagement[EmployeeID] ),
+			        FactEngagement[EngagementScore] <= 2
+			    )
+			VAR _TotalSurveyed =
+			    DISTINCTCOUNT( FactEngagement[EmployeeID] )
+			RETURN
+			    DIVIDE( _DisengagedCount, _TotalSurveyed,0)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Performance
+		lineageTag: 7cad858e-861d-4746-97dc-0f7894c80cd3
+
+	measure 'Avg Days Absent per Employee' =
+			
+			VAR _TotalDays =
+			        SUM( FactAbsence[DaysAbsent] )
+			VAR _EmployeeCount =
+			        DISTINCTCOUNT( FactAbsence[EmployeeID] )
+			RETURN
+			    DIVIDE( _TotalDays, _EmployeeCount )
+		formatString: 0
+		displayFolder: Performance
+		lineageTag: 1d4d5438-2eef-4c0b-a1b9-32a3bc4e085a
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Avg Performance Rating (Active)' = ```
+			
+			    CALCULATE([Avg Performance Rating], DimEmployee[EmploymentStatus] = "Active")
+			```
+		displayFolder: Performance
+		lineageTag: 6c5899dc-3943-41e1-a90d-561f6919ad69
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Enagagement Score (Active)' =
+			CALCULATE(
+			    [Avg Enagagement Score], DimEmployee[EmploymentStatus] = "Active")
+		displayFolder: Performance
+		lineageTag: 8e175715-a39b-4f57-99ec-36ba7bc3937e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Max Salaray' = ```
+			
+			    MAX(FactCompensation[AnnualSalary])
+			```
+		formatString: "€"\ #,0;-"€"\ #,0;"€"\ #,0
+		displayFolder: Performance
+		lineageTag: 5c4f3a10-9f27-4bed-9445-4f8b247aa8a5
+
+	measure 'Min Salaray' = ```
+			
+			    MIN(FactCompensation[AnnualSalary])
+			```
+		formatString: "€"\ #,0;-"€"\ #,0;"€"\ #,0
+		displayFolder: Performance
+		lineageTag: 19d1b721-b09b-4337-ad7a-941b06a9851f
+
+	measure 'Actual Salary Cost' = SUM(FactCompensation[AnnualSalary])
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		displayFolder: Performance
+		lineageTag: 8974bc3f-5e77-4571-9104-59c6038c6ddd
+
+	measure 'Budgeted Salary Cost' =
+			
+			SUM( WorkforceTargets[BudgetedSalaryCost] )
+		formatString: "€"\ #,0;-"€"\ #,0;"€"\ #,0
+		displayFolder: Performance
+		lineageTag: f1cb583f-2efb-4242-a296-cfda43534654
+
+	measure 'Salary Cost Variance' =
+			
+			[Actual Salary Cost] - [Budgeted Salary Cost]
+		formatString: "€"\ #,0;-"€"\ #,0;"€"\ #,0
+		displayFolder: Performance
+		lineageTag: 1790d8c5-a7bc-4fdd-afeb-ecbd4c335d4c
+
+	measure 'Salary Budget Utilisation %' =
+			
+			DIVIDE( [Actual Salary Cost], [Budgeted Salary Cost],0)
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
+		displayFolder: Performance
+		lineageTag: 08a173dd-4c27-4019-9ea1-3c76740b0c96
+
+	measure 'Headcount Variance' =
+			
+			VAR _var =[Actual Headcount] - [Budget Headcount]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        _Var < 0,  FORMAT( ABS( _Var ), "0" ) & " Headcounts short",
+			        _Var > 0,  FORMAT( _Var, "0" ) & " Headcounts over",
+			                   "On plan"
+			    )
+		displayFolder: Headcount
+		lineageTag: a74819e0-30ee-4d36-87b5-c4d349e4a9a2
+
+	measure 'Headcount Variance %' =
+			
+			DIVIDE( [Actual Headcount], [Budget Headcount],0)
+		displayFolder: Headcount
+		lineageTag: 8a3b6642-2fcf-4028-bb38-704399f9413c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'FTE Variance' =
+			
+			VAR _var = [Actual FTE] - [Budgeted FTE]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        _Var < 0,  FORMAT( ABS( _Var ), "0" ) & " Below budget",
+			        _Var > 0,  FORMAT( _Var, "0" ) & " Above budget",
+			                   "On plan"
+			    )
+		displayFolder: FTE
+		lineageTag: c0672933-a554-48c2-a87b-27ded923cec1
+
+	measure 'FTE Variance %' =
+			
+			DIVIDE( [Actual FTE], [Budgeted FTE],0)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: FTE
+		lineageTag: f53a67e7-51c2-47d9-b08e-39fff2458d22
+
+	measure 'Workforce Status Summary' =
+			
+			VAR _HCVar      = [Actual Headcount] - [Budget Headcount]
+			VAR _FTEVarPct  = DIVIDE( [Actual FTE], [Budgeted FTE],0)
+			VAR _SalVar     = [Actual Salary Cost] - [Budgeted Salary Cost]
+			VAR _SalAbs     = ABS( _SalVar )
+			VAR _SalDir     = IF( _SalVar >= 0, "over", "under" )
+			VAR _HCPrefix   = IF( _HCVar >= 0, "+", "" )
+			RETURN
+			    "Headcount " & _HCPrefix & _HCVar &
+			    "  ·  FTE " & FORMAT( _FTEVarPct, "+0.0%;-0.0%;0%" ) &
+			    "  ·  Salary €" & FORMAT( _SalAbs / 1000, "0,000.0" ) & "K " & _SalDir & " budget"
+		lineageTag: f379eca2-4a80-4708-bda0-870649094524
+
+	measure 'Workforce Overall Insight' =
+			
+			VAR _HCVar         = [Actual Headcount] - [Budget Headcount]
+			VAR _FTEVarPct     = DIVIDE( [Actual FTE], [Budgeted FTE],0)
+			VAR _SalUtil       = DIVIDE( [Actual Salary Cost], [Budgeted Salary Cost],0)
+			VAR _SalVar        = [Actual Salary Cost] - [Budgeted Salary Cost]
+			
+			-- Classify headcount severity
+			VAR _HCStatus =
+			    SWITCH(
+			        TRUE(),
+			        _HCVar <= -5,  "critical",
+			        _HCVar  <  0,  "atrisk",
+			        _HCVar  =  0,  "onplan",
+			                       "surplus"
+			    )
+			
+			-- Classify FTE severity
+			VAR _FTEStatus =
+			    SWITCH(
+			        TRUE(),
+			        _FTEVarPct < -0.10, "critical",
+			        _FTEVarPct <  0,    "atrisk",
+			        _FTEVarPct <= 0.05, "onplan",
+			                            "surplus"
+			    )
+			
+			-- Classify salary budget position
+			VAR _SalStatus =
+			    SWITCH(
+			        TRUE(),
+			        _SalUtil > 1.05,  "overspend",
+			        _SalUtil >= 0.95, "onbudget",
+			                          "underspend"
+			    )
+			
+			-- Combined narrative
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			
+			        -- Critical understaffing scenarios
+			        _HCStatus = "critical" && _SalStatus = "underspend",
+			            "🔴 Critical gap: headcount is significantly below plan while salary budget is unspent. " &
+			            "Open requisitions are not converting. Escalate recruitment urgency and review pipeline blockers immediately.",
+			
+			        _HCStatus = "critical" && _SalStatus = "overspend",
+			            "🔴 Critical understaffing despite salary overspend — review grade mix and contractor costs. " &
+			            "Higher spend per head suggests expensive interim cover. Prioritise permanent hiring to stabilise costs.",
+			
+			        _HCStatus = "critical" && _SalStatus = "onbudget",
+			            "🔴 Significantly below headcount plan. Budget is available. Activate urgent hiring across open roles " &
+			            "and escalate to talent acquisition leadership.",
+			
+			        -- At-risk scenarios
+			        _HCStatus = "atrisk" && _SalStatus = "underspend",
+			            "🟠 Below headcount plan with unspent salary budget. Headroom exists to hire. " &
+			            "Prioritise filling open roles before budget lapses — coordinate with recruitment on active requisitions.",
+			
+			        _HCStatus = "atrisk" && _SalStatus = "overspend",
+			            "🟠 Understaffed but overspending on salary — likely driven by higher-grade hires or pay uplifts. " &
+			            "Review compensation mix and ensure new hires align to budgeted levels.",
+			
+			        _HCStatus = "atrisk" && _SalStatus = "onbudget",
+			            "🟠 Slightly below headcount plan but salary is on track. Monitor attrition risk closely " &
+			            "and maintain active pipeline to avoid falling further behind plan.",
+			
+			        -- On plan scenarios
+			        _HCStatus = "onplan" && _SalStatus = "onbudget",
+			            "🟢 Workforce is on plan across headcount, FTE, and salary. " &
+			            "Maintain current hiring pace and review Q-ahead targets to stay ahead of any planned growth.",
+			
+			        _HCStatus = "onplan" && _SalStatus = "underspend",
+			            "🟢 Headcount on plan with salary budget underspend. Consider whether remaining budget " &
+			            "should fund competitive pay reviews — underspending on salary increases attrition risk over time.",
+			
+			        _HCStatus = "onplan" && _SalStatus = "overspend",
+			            "🟡 Headcount on plan but salary is over budget. Investigate whether pay uplifts, " &
+			            "off-cycle adjustments, or grade drift are driving the overrun.",
+			
+			        -- Surplus scenarios
+			        _HCStatus = "surplus" && _SalStatus = "overspend",
+			            "🔵 Overstaffed and over salary budget. Pause new requisition approvals, " &
+			            "review redeployment opportunities, and align headcount plan with revised targets.",
+			
+			        _HCStatus = "surplus" && _SalStatus = "onbudget",
+			            "🔵 Headcount above plan but salary within budget — lower average salaries may offset the headcount surplus. " &
+			            "Review grade distribution and consider redeployment before any further hiring.",
+			
+			        _HCStatus = "surplus",
+			            "🔵 Headcount above plan. Pause hiring approvals and review whether surplus " &
+			            "positions can be redeployed to understaffed departments.",
+			
+			        -- Fallback
+			        "ℹ️ Insufficient data in the selected period to generate a workforce insight. " &
+			        "Adjust your date or department filters."
+			    )
+		lineageTag: c22db33f-d7d2-40d9-9f9e-7f0725795ec5
+
+	measure 'Total Employees' = COUNTROWS(DimEmployee)
+		formatString: 0
+		lineageTag: 7a41013a-3c56-4026-a8a9-ebe130f585b8
+
+	measure 'Active Employees' =
+			CALCULATE(
+			    [Total Employees], DimEmployee[EmploymentStatus] = "Active")
+		formatString: 0
+		lineageTag: 7d959f96-108c-42ba-b96e-3b6c61090562
+
+	measure 'Inactive Employees' =
+			CALCULATE(
+			    [Total Employees], DimEmployee[EmploymentStatus] = "Terminated")
+		formatString: 0
+		lineageTag: fdb20909-7386-4698-9b0d-9af50619f03f
+
+	measure 'current headcount' =
+			CALCULATE(
+			    [Actual Headcount],LASTDATE(PREVIOUSMONTH(LASTDATE(FactMonthlySnapshot[Month]))))
+		formatString: 0
+		lineageTag: a6060e3d-6204-4dc0-8b72-88e6865644f9
+
+	measure 'Headcount Variance Colour' =
+			
+			VAR _Var = [Actual Headcount] - [Budget Headcount]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        _Var < 0, "#D64545",   -- red: short-staffed
+			        _Var > 0, "#E8A33D",   -- amber: over budget
+			        "#2E8B57"              -- green: on plan
+			    )
+		lineageTag: de1069c5-e7d5-4554-b03a-03a34fb658c2
 
 	column ***
 		dataType: string

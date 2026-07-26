@@ -71,6 +71,21 @@ table DimDate
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	hierarchy 'Year Hierarchy'
+		lineageTag: 8d5fcb74-987e-4e46-b015-0efb0486ac56
+
+		level Year
+			lineageTag: 7cd49573-f477-475c-9123-dd4bfd4b5902
+			column: Year
+
+		level Quarter
+			lineageTag: 42a6c1d3-da77-41b6-8755-a047bd58eaea
+			column: Quarter
+
+		level MonthName
+			lineageTag: 6d3bd25e-47f4-42ec-910d-39ce53cc301a
+			column: MonthName
+
 	partition DimDate = m
 		mode: import
 		source =

@@ -497,6 +497,13 @@
                   "Value": "-1D"
                 }
               }
+            },
+            "customFormatString": {
+              "expr": {
+                "Literal": {
+                  "Value": "'\"▼ \"#,##0.0%;\"▲ \"-#,##0.0%;\"― \"0.0%'"
+                }
+              }
             }
           },
           "selector": {
@@ -532,6 +539,87 @@
           "selector": {
             "metadata": "_measures.Rolling 12M Attrition Rate",
             "id": "field-0a2e2ef8-5838-2f9e-58de-f3487e198568"
+          }
+        },
+        {
+          "properties": {
+            "valueFontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Conditional": {
+                      "Cases": [
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 3,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "_measures"
+                                    }
+                                  },
+                                  "Property": "Attrition Rate YoY Change"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#2E8B57'"
+                            }
+                          }
+                        },
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 1,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "_measures"
+                                    }
+                                  },
+                                  "Property": "Attrition Rate YoY Change"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#D64545'"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "_measures.Rolling 12M Attrition Rate",
+            "id": "field-2202da3d-462b-62fd-a788-0ab2019c6d8d"
           }
         }
       ],

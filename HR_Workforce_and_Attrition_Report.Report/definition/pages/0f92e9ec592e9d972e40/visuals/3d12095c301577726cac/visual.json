@@ -3,14 +3,14 @@
   "name": "3d12095c301577726cac",
   "position": {
     "x": 336,
-    "y": 336,
-    "z": 9000,
-    "height": 336,
-    "width": 1056,
-    "tabOrder": 9000
+    "y": 256,
+    "z": 4000,
+    "height": 400,
+    "width": 832,
+    "tabOrder": 4000
   },
   "visual": {
-    "visualType": "lineChart",
+    "visualType": "scatterChart",
     "query": {
       "queryState": {
         "Category": {
@@ -20,14 +20,51 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DimDate"
+                      "Entity": "DimDepartment"
                     }
                   },
-                  "Property": "Month"
+                  "Property": "Department"
                 }
               },
-              "queryRef": "DimDate.Month",
-              "nativeQueryRef": "Month",
+              "queryRef": "DimDepartment.Department",
+              "nativeQueryRef": "Department",
+              "active": true
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_measures"
+                    }
+                  },
+                  "Property": "Actual Headcount"
+                }
+              },
+              "queryRef": "_measures.Actual Headcount",
+              "nativeQueryRef": "Actual Headcount"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_measures"
+                    }
+                  },
+                  "Property": "Avg Enagagement Score"
+                }
+              },
+              "queryRef": "_measures.Avg Enagagement Score",
+              "nativeQueryRef": "Avg Enagagement Score",
               "active": true
             }
           ]
@@ -42,55 +79,20 @@
                       "Entity": "_measures"
                     }
                   },
-                  "Property": "Total Terminations"
+                  "Property": "Attrition Rate (All Exits)"
                 }
               },
-              "queryRef": "_measures.Total Terminations",
-              "nativeQueryRef": "Total Terminations"
+              "queryRef": "_measures.Attrition Rate (All Exits)",
+              "nativeQueryRef": "Attrition Rate (All Exits)"
             }
           ]
         }
       },
       "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "DimDate"
-                  }
-                },
-                "Property": "Month"
-              }
-            },
-            "direction": "Ascending"
-          }
-        ],
         "isDefaultSort": true
       }
     },
     "objects": {
-      "lineStyles": [
-        {
-          "properties": {
-            "areaShow": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "areaMatchStrokeColor": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          }
-        }
-      ],
       "legend": [
         {
           "properties": {
@@ -132,6 +134,20 @@
                   }
                 }
               }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
             }
           }
         }
@@ -164,6 +180,33 @@
                   "Value": "false"
                 }
               }
+            },
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
             }
           }
         }
@@ -177,6 +220,65 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Correlation between Attrition & Avg Engagement Score'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "spacing": [
+        {
+          "properties": {
+            "spaceAbovePlotArea": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

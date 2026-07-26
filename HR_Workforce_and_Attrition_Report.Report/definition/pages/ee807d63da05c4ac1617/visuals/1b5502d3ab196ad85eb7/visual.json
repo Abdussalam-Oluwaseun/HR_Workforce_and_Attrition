@@ -217,7 +217,7 @@
                       "Entity": "_measures"
                     }
                   },
-                  "Property": "dummy"
+                  "Property": "_dummy"
                 }
               }
             }

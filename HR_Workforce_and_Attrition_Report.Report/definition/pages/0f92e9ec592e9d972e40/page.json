@@ -21,7 +21,7 @@
               "name": {
                 "expr": {
                   "Literal": {
-                    "Value": "'Frame 1.svg'"
+                    "Value": "'Retention (3).svg'"
                   }
                 }
               },
@@ -30,7 +30,7 @@
                   "ResourcePackageItem": {
                     "PackageName": "RegisteredResources",
                     "PackageType": 1,
-                    "ItemName": "Frame_16051539487497715.svg"
+                    "ItemName": "Retention_(3)10496813523377158.svg"
                   }
                 }
               },
@@ -63,5 +63,6 @@
         }
       }
     ]
-  }
+  },
+  "visibility": "HiddenInViewMode"
 }

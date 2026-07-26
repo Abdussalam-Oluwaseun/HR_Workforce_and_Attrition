@@ -17,17 +17,23 @@
           "projections": [
             {
               "field": {
-                "Measure": {
+                "Aggregation": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "_measures"
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimEmployee"
+                        }
+                      },
+                      "Property": "EmployeeID"
                     }
                   },
-                  "Property": "Rolling 12M Attrition Rate"
+                  "Function": 2
                 }
               },
-              "queryRef": "_measures.Rolling 12M Attrition Rate",
-              "nativeQueryRef": "Rolling 12M Attrition Rate"
+              "queryRef": "Min(DimEmployee.EmployeeID)",
+              "nativeQueryRef": "Total Employee",
+              "displayName": "Total Employee"
             }
           ]
         }
@@ -36,13 +42,18 @@
         "sort": [
           {
             "field": {
-              "Measure": {
+              "Aggregation": {
                 "Expression": {
-                  "SourceRef": {
-                    "Entity": "_measures"
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "DimEmployee"
+                      }
+                    },
+                    "Property": "EmployeeID"
                   }
                 },
-                "Property": "Rolling 12M Attrition Rate"
+                "Function": 2
               }
             },
             "direction": "Descending"
@@ -170,6 +181,90 @@
             ],
             "metadata": "_measures.Rolling 12M Attrition Rate",
             "id": "field-0a2e2ef8-5838-2f9e-58de-f3487e198568",
+            "order": 2
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_measures"
+                    }
+                  },
+                  "Property": "Active Employees"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "Min(DimEmployee.EmployeeID)",
+            "id": "field-f99cf36b-a5e1-087e-d82a-c81e1820e380",
+            "order": 0
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_measures"
+                    }
+                  },
+                  "Property": "Inactive Employees"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "Min(DimEmployee.EmployeeID)",
+            "id": "field-5b8c647e-83b8-b76e-c6a4-9940a9e5cb25",
+            "order": 1
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_measures"
+                    }
+                  },
+                  "Property": "current headcount"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "Min(DimEmployee.EmployeeID)",
+            "id": "field-bdf161cf-8f82-72ed-0401-924c29207c82",
             "order": 2
           }
         }
@@ -479,6 +574,93 @@
             "metadata": "_measures.Rolling 12M Attrition Rate",
             "id": "field-0a2e2ef8-5838-2f9e-58de-f3487e198568"
           }
+        },
+        {
+          "properties": {
+            "titleFontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Active'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Min(DimEmployee.EmployeeID)",
+            "id": "field-f99cf36b-a5e1-087e-d82a-c81e1820e380"
+          }
+        },
+        {
+          "properties": {
+            "titleFontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Min(DimEmployee.EmployeeID)"
+          }
+        },
+        {
+          "properties": {
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Terminated'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Min(DimEmployee.EmployeeID)",
+            "id": "field-5b8c647e-83b8-b76e-c6a4-9940a9e5cb25"
+          }
+        },
+        {
+          "properties": {
+            "titleContentType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'custom'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Prev Month'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Min(DimEmployee.EmployeeID)",
+            "id": "field-bdf161cf-8f82-72ed-0401-924c29207c82"
+          }
         }
       ],
       "referenceLabelValue": [
@@ -532,6 +714,35 @@
           "selector": {
             "metadata": "_measures.Rolling 12M Attrition Rate",
             "id": "field-0a2e2ef8-5838-2f9e-58de-f3487e198568"
+          }
+        },
+        {
+          "properties": {
+            "valueFontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Min(DimEmployee.EmployeeID)",
+            "id": "field-f99cf36b-a5e1-087e-d82a-c81e1820e380"
+          }
+        },
+        {
+          "properties": {
+            "valueFontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Min(DimEmployee.EmployeeID)"
           }
         }
       ],

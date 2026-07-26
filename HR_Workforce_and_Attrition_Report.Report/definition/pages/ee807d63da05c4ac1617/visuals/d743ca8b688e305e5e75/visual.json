@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "d743ca8b688e305e5e75",
   "position": {
-    "x": 1408,
+    "x": 1392,
     "y": 320,
     "z": 7000,
     "height": 320,
-    "width": 480,
+    "width": 496,
     "tabOrder": 7000
   },
   "visual": {
@@ -28,20 +28,6 @@
               },
               "queryRef": "FactEmployeeEvents.TerminationType",
               "nativeQueryRef": "TerminationType"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "FactEmployeeEvents"
-                    }
-                  },
-                  "Property": "TerminationReason"
-                }
-              },
-              "queryRef": "FactEmployeeEvents.TerminationReason",
-              "nativeQueryRef": "TerminationReason"
             }
           ]
         },
@@ -97,7 +83,7 @@
             "lastVersionUpdated": {
               "expr": {
                 "Literal": {
-                  "Value": "1784964360000D"
+                  "Value": "1785106260000D"
                 }
               }
             }
@@ -196,6 +182,13 @@
                   "Value": "true"
                 }
               }
+            },
+            "fontSizeOutside": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
             }
           }
         }
@@ -264,6 +257,32 @@
             }
           }
         }
+      ],
+      "darkMode": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "popup": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -273,7 +292,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             }
@@ -286,7 +305,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             }

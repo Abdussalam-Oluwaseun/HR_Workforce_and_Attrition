@@ -38,6 +38,13 @@ table FactEngagement
 
 		annotation SummarizationSetBy = Automatic
 
+	column EngagementRiskFlag = IF(FactEngagement[EngagementScore] <= 2, TRUE, FALSE)
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a201c791-5a6c-4bd4-be5d-519d7abf24a1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition FactEngagement = m
 		mode: import
 		source =

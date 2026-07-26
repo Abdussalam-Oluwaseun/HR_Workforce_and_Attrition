@@ -21,7 +21,7 @@
               "name": {
                 "expr": {
                   "Literal": {
-                    "Value": "'Frame 1.svg'"
+                    "Value": "'Overview.svg'"
                   }
                 }
               },
@@ -30,7 +30,7 @@
                   "ResourcePackageItem": {
                     "PackageName": "RegisteredResources",
                     "PackageType": 1,
-                    "ItemName": "Frame_16051539487497715.svg"
+                    "ItemName": "Overview7264810973477526.svg"
                   }
                 }
               },

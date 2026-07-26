@@ -22,7 +22,7 @@ table WorkforceTargets
 
 	column PlannedHeadcount
 		dataType: int64
-		formatString: 0
+		formatString: #,0
 		lineageTag: b39bd19d-84e6-4620-b852-d1727cb7732a
 		summarizeBy: sum
 		sourceColumn: PlannedHeadcount
@@ -41,7 +41,7 @@ table WorkforceTargets
 
 	column BudgetedSalaryCost
 		dataType: int64
-		formatString: 0
+		formatString: "€"\ #,0.00;-"€"\ #,0.00;"€"\ #,0.00
 		lineageTag: a5d977b0-e0aa-4bbe-bd25-ed3c3538ded0
 		summarizeBy: sum
 		sourceColumn: BudgetedSalaryCost
